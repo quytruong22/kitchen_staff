@@ -3,12 +3,13 @@ import 'package:chef_application/config/theme.dart';
 
 class Background extends StatelessWidget {
   final Widget child;
-  const Background({
-    Key? key,
-    required this.child,
-    // this.topImage = "",
-    // this.bottomImage = "",
-  }) : super(key: key);
+  final Color color;
+
+  const Background({Key? key, required this.child, required this.color
+      // this.topImage = "",
+      // this.bottomImage = "",
+      })
+      : super(key: key);
 
   // final String topImage, bottomImage;
 
@@ -17,7 +18,7 @@ class Background extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
-        color: textLightColor,
+        color: color,
         width: double.infinity,
         height: MediaQuery.of(context).size.height,
         child: Stack(

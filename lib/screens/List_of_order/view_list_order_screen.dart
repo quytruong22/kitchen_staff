@@ -17,57 +17,58 @@ class _ListOrderState extends State<ListOrder> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Background(
+        color: textLightColor,
         child: SafeArea(
             child: Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        SideBar(),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SingleChildScrollView(
-                child: Column(
+            SideBar(),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                SingleChildScrollView(
+                    child: Column(
+                  children: [
+                    Container(
+                      width: size.width - defaultPadding * 6,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          OrderView(),
+                          OrderView(),
+                          OrderView(),
+                          OrderView()
+                        ],
+                      ),
+                    )
+                  ],
+                )),
                 Container(
+                  color: primaryColor,
                   width: size.width - defaultPadding * 6,
+                  height: size.height * 0.14,
+                  alignment: Alignment.center,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      OrderView(),
-                      OrderView(),
-                      OrderView(),
-                      OrderView()
+                      ActionButton(
+                          text: "HOÀN THÀNH",
+                          press: () {},
+                          icon: Icons.fastfood,
+                          color: warningColor),
+                      ActionButton(
+                          text: "TRẢ LẠI",
+                          press: () {},
+                          icon: Icons.no_food,
+                          color: voidColor),
+                      ListLocation()
                     ],
                   ),
                 )
               ],
-            )),
-            Container(
-              color: activeColor,
-              width: size.width - defaultPadding * 6,
-              height: size.height * 0.14,
-              alignment: Alignment.center,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ActionButton(
-                      text: "HOÀN THÀNH",
-                      press: () {},
-                      icon: Icons.fastfood,
-                      color: warningColor),
-                  ActionButton(
-                      text: "TRẢ LẠI",
-                      press: () {},
-                      icon: Icons.no_food,
-                      color: voidColor),
-                  ListLocation()
-                ],
-              ),
             )
           ],
-        )
-      ],
-    )));
+        )));
   }
 }

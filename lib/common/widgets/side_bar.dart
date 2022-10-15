@@ -43,7 +43,7 @@ class _SideBarState extends State<SideBar> {
               children: <Widget>[
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed('/order');
+                    Navigator.of(context).pushReplacementNamed('/order');
                   },
                   child: Column(
                     // Replace with a Row for horizontal icon + text
@@ -67,7 +67,7 @@ class _SideBarState extends State<SideBar> {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed('/item');
+                    Navigator.of(context).pushReplacementNamed('/item');
                   },
                   child: Column(
                     // Replace with a Row for horizontal icon + text
@@ -91,7 +91,7 @@ class _SideBarState extends State<SideBar> {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed('/login');
+                    Navigator.of(context).pop('/login');
                   },
                   child: Column(
                     // Replace with a Row for horizontal icon + text
