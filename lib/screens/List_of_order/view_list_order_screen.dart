@@ -46,11 +46,11 @@ class _ListOrderState extends State<ListOrder> {
                 )),
                 Container(
                   color: primaryColor,
-                  width: size.width - defaultPadding * 6,
-                  height: size.height * 0.14,
+                  width: size.width / 14 * 13,
+                  height: size.height * 0.12,
                   alignment: Alignment.center,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ActionButton(
                           text: "HOÀN THÀNH",
@@ -62,7 +62,6 @@ class _ListOrderState extends State<ListOrder> {
                           press: () {},
                           icon: Icons.no_food,
                           color: voidColor),
-                      ListLocation()
                     ],
                   ),
                 )

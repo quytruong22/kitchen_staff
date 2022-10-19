@@ -1,23 +1,6 @@
 import 'package:flutter/material.dart';
-
+import '../../config/routes.dart';
 import '../../config/theme.dart';
-
-class TableLayoutScreen extends StatelessWidget {
-  const TableLayoutScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    // return Background(
-    return Scaffold(
-      backgroundColor: textLightColor,
-      body: Container(
-        height: double.infinity,
-        color: activeColor,
-        child: const SideBar(),
-      ),
-    );
-  }
-}
 
 class SideBar extends StatefulWidget {
   const SideBar({Key? key}) : super(key: key);
@@ -29,70 +12,92 @@ class SideBar extends StatefulWidget {
 class _SideBarState extends State<SideBar> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Stack(
       children: <Widget>[
         Container(
-          color: activeColor,
+          color: sideBarColor,
           child: SizedBox(
-            height: size.height,
-            width: defaultPadding * 6,
+            height: MediaQuery.of(context).size.height - defaultPadding * 1.5,
+            // width: defaultPadding * 6,
+            width: MediaQuery.of(context).size.width / 14,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // mainAxisSize: MainAxisSize.max,
+              // crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pushReplacementNamed('/order');
-                  },
-                  child: Column(
-                    // Replace with a Row for horizontal icon + text
-                    children: const <Widget>[
-                      Icon(
-                        Icons.shower,
-                        size: 50,
-                        color: textLightColor,
+                Column(
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pushReplacementNamed('/order');
+                      },
+                      style: TextButton.styleFrom(
+                        backgroundColor: sideBarColor,
+                        // textStyle: GoogleFonts.fredokaOne(),
                       ),
-                      Text(
-                        "MÓN ĐANG NẤU",
-                        style: TextStyle(
-                          fontSize: 10.5,
-                          fontWeight: FontWeight.w700,
-                          color: textLightColor,
-                        ),
-                        textAlign: TextAlign.center,
+                      // color: sideBarColor,
+                      // padding: const EdgeInsets.all(20),
+                      child: Column(
+                        // Replace with a Row for horizontal icon + text
+                        children: const <Widget>[
+                          Icon(
+                            Icons.shower,
+                            size: 50,
+                            color: textLightColor,
+                          ),
+                          Text(
+                            "MÓN ĐANG NẤU",
+                            style: TextStyle(
+                              fontSize: 10.5,
+                              fontWeight: FontWeight.w700,
+                              color: textLightColor,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pushReplacementNamed('/item');
-                  },
-                  child: Column(
-                    // Replace with a Row for horizontal icon + text
-                    children: const <Widget>[
-                      Icon(
-                        Icons.book,
-                        size: 50,
-                        color: textLightColor,
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pushReplacementNamed('/item');
+                      },
+                      style: TextButton.styleFrom(
+                        backgroundColor: sideBarColor,
+                        // textStyle: GoogleFonts.fredokaOne(),
                       ),
-                      Text(
-                        "DANH SÁCH MÓN ĂN",
-                        style: TextStyle(
-                          fontSize: 10.5,
-                          fontWeight: FontWeight.w700,
-                          color: textLightColor,
-                        ),
-                        textAlign: TextAlign.center,
+                      // color: sideBarColor,
+                      // padding: const EdgeInsets.all(20),
+                      child: Column(
+                        // Replace with a Row for horizontal icon + text
+                        children: const <Widget>[
+                          Icon(
+                            Icons.book,
+                            size: 50,
+                            color: textLightColor,
+                          ),
+                          Text(
+                            "DANH SÁCH MÓN ĂN",
+                            style: TextStyle(
+                              fontSize: 10.5,
+                              fontWeight: FontWeight.w700,
+                              color: textLightColor,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop('/login');
                   },
+                  style: TextButton.styleFrom(
+                    backgroundColor: sideBarColor,
+                  ),
+                  // color: sideBarColor,
+                  // padding: const EdgeInsets.all(20),
                   child: Column(
                     // Replace with a Row for horizontal icon + text
                     children: const <Widget>[
@@ -102,9 +107,9 @@ class _SideBarState extends State<SideBar> {
                         color: textLightColor,
                       ),
                       Text(
-                        "ĐĂNG XUẤT",
+                        'ĐĂNG XUẤT',
                         style: TextStyle(
-                          fontSize: 10.5,
+                          fontSize: 10,
                           fontWeight: FontWeight.w700,
                           color: textLightColor,
                         ),

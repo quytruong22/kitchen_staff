@@ -13,6 +13,68 @@ class ListItem extends StatefulWidget {
 }
 
 class _ListItemState extends State<ListItem> {
+  bool selectedList = false;
+
+  Widget ActionBar(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    if (selectedList) {
+      return Container(
+        color: primaryColor,
+        width: size.width - size.width / 14,
+        height: size.height * 0.12,
+        child: Row(
+          children: [
+            Container(
+              width: size.width - size.width / 14 - size.height * 0.12,
+              alignment: Alignment.center,
+              child: ActionButton(
+                  text: "ĐÃ HẾT",
+                  press: () {},
+                  icon: Icons.remove_shopping_cart_outlined,
+                  color: voidColor),
+            ),
+            ActionButton(
+                text: "MÓN ĐÃ HẾT",
+                press: () {
+                  setState(() {
+                    selectedList = false;
+                  });
+                },
+                icon: Icons.book,
+                color: voidColor),
+          ],
+        ),
+      );
+    } else
+      return Container(
+        color: primaryColor,
+        width: size.width - size.width / 14,
+        height: size.height * 0.12,
+        child: Row(
+          children: [
+            Container(
+              width: size.width - size.width / 14 - size.height * 0.12,
+              alignment: Alignment.center,
+              child: ActionButton(
+                  text: "NHẬP HÀNG",
+                  press: () {},
+                  icon: Icons.add_shopping_cart,
+                  color: activeColor),
+            ),
+            ActionButton(
+                text: "MÓN HIỆN CÓ",
+                press: () {
+                  setState(() {
+                    selectedList = true;
+                  });
+                },
+                icon: Icons.book,
+                color: activeColor),
+          ],
+        ),
+      );
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -167,27 +229,7 @@ class _ListItemState extends State<ListItem> {
                     ],
                   ),
                 )),
-                Container(
-                  color: primaryColor,
-                  width: size.width - defaultPadding * 6,
-                  height: size.height * 0.12,
-                  alignment: Alignment.center,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      ActionButton(
-                          text: "ĐÃ HẾT",
-                          press: () {},
-                          icon: Icons.remove_shopping_cart_outlined,
-                          color: voidColor),
-                      ActionButton(
-                          text: "NHẬP HÀNG",
-                          press: () {},
-                          icon: Icons.add_shopping_cart,
-                          color: activeColor),
-                    ],
-                  ),
-                )
+                ActionBar(context)
               ],
             )
           ],
