@@ -14,7 +14,7 @@ class CheckDTO {
   factory CheckDTO.fromJson(Map<String, dynamic> json) {
     return CheckDTO(
         checkid: json['checkid'] as int,
-        checkno: json['checkno'],
+        checkno: json['checkno'] as String,
         checkdetail:
             ListCheckDetail.fromJson(json['checkdetail']).checkDetails);
   }

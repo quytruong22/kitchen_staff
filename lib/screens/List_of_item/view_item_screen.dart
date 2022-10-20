@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:chef_application/common/widgets/action_button.dart';
 import 'package:chef_application/common/widgets/background.dart';
 import 'package:chef_application/common/widgets/side_bar.dart';
+import 'package:chef_application/repos/models/item_obj.dart';
 import 'package:chef_application/screens/List_of_item/widget/item_view.dart';
 import 'package:chef_application/screens/List_of_item/widget/major_button.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +17,19 @@ class ListItem extends StatefulWidget {
 
 class _ListItemState extends State<ListItem> {
   bool selectedList = false;
+  List<ItemDTO> list = [
+    ItemDTO(id: '1'),
+    ItemDTO(id: '2'),
+    ItemDTO(id: '3'),
+    ItemDTO(id: '4'),
+    ItemDTO(id: '5'),
+    ItemDTO(id: '6'),
+    ItemDTO(id: '7'),
+    ItemDTO(id: '8'),
+    ItemDTO(id: '9'),
+    ItemDTO(id: '10'),
+    ItemDTO(id: '11'),
+  ];
 
   Widget ActionBar(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -29,7 +45,16 @@ class _ListItemState extends State<ListItem> {
               alignment: Alignment.center,
               child: ActionButton(
                   text: "ĐÃ HẾT",
-                  press: () {},
+                  press: () {
+                    List<ItemDTO> selectList = [];
+                    for (var e in list) {
+                      if (e.isSelected) {
+                        selectList.add(e);
+                      }
+                    }
+                    String jsonList = jsonEncode(selectList);
+                    print(jsonList);
+                  },
                   icon: Icons.remove_shopping_cart_outlined,
                   color: voidColor),
             ),
@@ -45,7 +70,7 @@ class _ListItemState extends State<ListItem> {
           ],
         ),
       );
-    } else
+    } else {
       return Container(
         color: primaryColor,
         width: size.width - size.width / 14,
@@ -57,7 +82,16 @@ class _ListItemState extends State<ListItem> {
               alignment: Alignment.center,
               child: ActionButton(
                   text: "NHẬP HÀNG",
-                  press: () {},
+                  press: () {
+                    List<ItemDTO> selectList = [];
+                    for (var e in list) {
+                      if (e.isSelected) {
+                        selectList.add(e);
+                      }
+                    }
+                    String jsonList = jsonEncode(selectList);
+                    print(jsonList);
+                  },
                   icon: Icons.add_shopping_cart,
                   color: activeColor),
             ),
@@ -73,6 +107,11 @@ class _ListItemState extends State<ListItem> {
           ],
         ),
       );
+    }
+  }
+
+  List<CardItem> listCheck(BuildContext context, List<ItemDTO> list) {
+    return list.map((e) => CardItem(item: e)).toList();
   }
 
   @override
@@ -209,24 +248,7 @@ class _ListItemState extends State<ListItem> {
                   child: GridView.count(
                     crossAxisSpacing: 10,
                     crossAxisCount: 5,
-                    children: [
-                      CardItem(tap: () {}),
-                      CardItem(tap: () {}),
-                      CardItem(tap: () {}),
-                      CardItem(tap: () {}),
-                      CardItem(tap: () {}),
-                      CardItem(tap: () {}),
-                      CardItem(tap: () {}),
-                      CardItem(tap: () {}),
-                      CardItem(tap: () {}),
-                      CardItem(tap: () {}),
-                      CardItem(tap: () {}),
-                      CardItem(tap: () {}),
-                      CardItem(tap: () {}),
-                      CardItem(tap: () {}),
-                      CardItem(tap: () {}),
-                      CardItem(tap: () {}),
-                    ],
+                    children: [...listCheck(context, list)],
                   ),
                 )),
                 ActionBar(context)

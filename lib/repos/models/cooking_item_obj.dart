@@ -7,6 +7,7 @@ class CheckDetailDTO {
   final String note;
   final bool isreminded;
   final List<SpecialRequestDTO> specialrequest;
+  bool isSelected = false;
 
   CheckDetailDTO(
       {required this.checkdetailid,
@@ -16,15 +17,25 @@ class CheckDetailDTO {
       required this.isreminded,
       required this.specialrequest});
 
+  set setIsSeleceted(bool newValue) {
+    isSelected = newValue;
+  }
+
   factory CheckDetailDTO.fromJson(Map<String, dynamic> json) {
     return CheckDetailDTO(
         checkdetailid: json['checkdetailid'] as int,
-        itemname: json['itemname'],
+        itemname: json['itemname'] as String,
         quantity: json['quantity'] as int,
-        note: json['note'],
-        isreminded: json['isreminded'] == 'false' ? false : true,
+        note: json['note'] as String,
+        isreminded: json['isreminded'] as bool,
         specialrequest: ListSpecialRequest.fromJson(json['specialrequest'])
             .specialRequests);
+  }
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['checkdetailid'] = checkdetailid;
+    data['quantity'] = quantity;
+    return data;
   }
 }
 
