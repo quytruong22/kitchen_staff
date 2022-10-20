@@ -1,7 +1,13 @@
 import 'package:chef_application/config/theme.dart';
+import 'package:chef_application/repos/models/order_obj.dart';
+import 'package:chef_application/screens/List_of_order/widget/item_in_order.dart';
 import 'package:flutter/material.dart';
 
 class OrderView extends StatefulWidget {
+  final CheckDTO check;
+
+  OrderView({required this.check});
+
   @override
   State<OrderView> createState() => _OrderViewState();
 }
@@ -11,125 +17,49 @@ class _OrderViewState extends State<OrderView> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-        width: size.width * 0.20,
+        width: size.width * 0.2,
         margin: const EdgeInsets.all(10.0),
-        decoration: const BoxDecoration(
-            border: Border(
-          top: BorderSide(color: textColor),
-          left: BorderSide(color: textColor),
-          right: BorderSide(color: textColor),
-          bottom: BorderSide(color: textColor),
-        )),
+        decoration: BoxDecoration(
+          color: textLightColor,
+          borderRadius: BorderRadius.circular(5),
+          boxShadow: const [
+            BoxShadow(
+              color: shadowColor,
+              blurRadius: 3,
+              offset: Offset(0, 3), // Shadow position
+            ),
+          ],
+        ),
         child: Column(
           children: [
             Container(
-              margin: const EdgeInsets.fromLTRB(5, 5, 5, 5),
+              height: 35,
+              padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
               decoration: const BoxDecoration(
-                  border: Border(
-                bottom: BorderSide(color: textColor),
-              )),
+                border: Border(
+                  bottom: BorderSide(color: textColor),
+                ),
+                color: activeColor,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text('Check#1',
-                      style: TextStyle(
-                          color: textColor,
+                children: [
+                  Text(widget.check.checkno,
+                      style: const TextStyle(
+                          color: textLightColor,
                           fontSize: 15,
                           fontWeight: FontWeight.bold)),
-                  Text('12:20',
-                      style: TextStyle(
-                          color: textColor,
+                  Text(widget.check.runningsince,
+                      style: const TextStyle(
+                          color: textLightColor,
                           fontSize: 15,
                           fontWeight: FontWeight.bold)),
                 ],
               ),
             ),
-            Container(
-              margin: const EdgeInsets.fromLTRB(5, 2, 5, 2),
-              child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: size.width * 0.015,
-                      margin: const EdgeInsets.only(right: 5),
-                      child: Text('21',
-                          style: TextStyle(
-                              color: textColor,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold)),
-                    ),
-                    Container(
-                      width: size.width * 0.20 - size.width * 0.04,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text(
-                            'Xúc xích chiên',
-                            style: TextStyle(
-                                color: textColor,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.left,
-                          ),
-                          Text(
-                            'Chiên vừa, Nhiều sốt',
-                            style: TextStyle(color: textColor, fontSize: 12),
-                            textAlign: TextAlign.left,
-                          ),
-                          Text(
-                            'Cắt thành nhiều miếng nhỏ',
-                            style: TextStyle(color: textColor, fontSize: 12),
-                            textAlign: TextAlign.left,
-                          ),
-                        ],
-                      ),
-                    )
-                  ]),
-            ),
-            Container(
-              margin: const EdgeInsets.fromLTRB(5, 2, 5, 2),
-              child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: size.width * 0.015,
-                      margin: const EdgeInsets.only(right: 5),
-                      child: Text('2',
-                          style: TextStyle(
-                              color: textColor,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold)),
-                    ),
-                    Container(
-                      width: size.width * 0.20 - size.width * 0.04,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text(
-                            'Xúc xích chiên',
-                            style: TextStyle(
-                                color: textColor,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.left,
-                          ),
-                          Text(
-                            'Chiên vừa, Nhiều sốt',
-                            style: TextStyle(color: textColor, fontSize: 12),
-                            textAlign: TextAlign.left,
-                          ),
-                          Text(
-                            'Cắt thành nhiều miếng nhỏ',
-                            style: TextStyle(color: textColor, fontSize: 12),
-                            textAlign: TextAlign.left,
-                          ),
-                        ],
-                      ),
-                    )
-                  ]),
-            )
+            ...widget.check.checkdetail
+                .map((e) => OrderItemView(checkDetail: e))
+                .toList(),
           ],
         ));
   }

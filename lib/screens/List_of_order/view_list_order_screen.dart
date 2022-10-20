@@ -5,10 +5,11 @@ import 'package:chef_application/common/widgets/background.dart';
 import 'package:chef_application/common/widgets/side_bar.dart';
 import 'package:chef_application/repos/models/cooking_item_obj.dart';
 import 'package:chef_application/repos/models/order_obj.dart';
-import 'package:chef_application/screens/List_of_order/widget/order_copy.dart';
+import 'package:chef_application/screens/List_of_order/widget/order.dart';
 import 'package:flutter/material.dart';
 
 import 'package:chef_application/config/theme.dart';
+import 'package:flutter_masonry_view/flutter_masonry_view.dart';
 
 class ListOrder extends StatefulWidget {
   @override
@@ -26,28 +27,28 @@ class _ListOrderState extends State<ListOrder> {
     List<CheckDTO> list = ListCheck.fromJson(myData).checks;
     Size size = MediaQuery.of(context).size;
     return Background(
-        color: textLightColor,
+        color: bgColor,
         child: SafeArea(
             child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SideBar(),
+            SideBar(selectedIndex: 1),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SingleChildScrollView(
-                    child: Column(
-                  children: [
-                    Container(
-                      width: size.width - defaultPadding * 6,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [...listCheck(context, list)],
-                      ),
-                    )
-                  ],
-                )),
+                Container(
+                    width: size.width - size.width / 14,
+                    height: size.height * 0.8,
+                    child: SingleChildScrollView(
+                        child: MasonryView(
+                      itemRadius: 0,
+                      itemPadding: 0,
+                      itemBuilder: (item) {
+                        return item;
+                      },
+                      numberOfColumn: 4,
+                      listOfItem: listCheck(context, list),
+                    ))),
                 Container(
                   color: primaryColor,
                   width: size.width - size.width / 14,
@@ -164,6 +165,166 @@ class _ListOrderState extends State<ListOrder> {
             },
             {
                 "checkdetailid": 29,
+                "itemname": "item 2",
+                "quantity": 3,
+                "note": "Add more nuts",
+                "isreminded": false,
+                "specialrequest": [
+                    {
+                        "name": "add ice 1"
+                    },
+                    {
+                        "name": "add tea 1"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "checkid": 7,
+        "checkno": "ARdKoYfK",
+        "runningsince": null,
+        "checkdetail": [
+            {
+                "checkdetailid": 1,
+                "itemname": "item 2",
+                "quantity": 2,
+                "note": "Add more nuts",
+                "isreminded": true,
+                "specialrequest": [
+                    {
+                        "name": "add beef 1"
+                    }
+                ]
+            },
+            {
+                "checkdetailid": 2,
+                "itemname": "item 2",
+                "quantity": 2,
+                "note": "Add more nuts",
+                "isreminded": false,
+                "specialrequest": [
+                    {
+                        "name": "add beef 1"
+                    }
+                ]
+            },
+            {
+                "checkdetailid": 3,
+                "itemname": "item 2",
+                "quantity": 3,
+                "note": "Add more nuts",
+                "isreminded": false,
+                "specialrequest": [
+                    {
+                        "name": "add ice 1"
+                    },
+                    {
+                        "name": "add tea 1"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "checkid": 8,
+        "checkno": "om41ymDP",
+        "runningsince": null,
+        "checkdetail": [
+            {
+                "checkdetailid": 4,
+                "itemname": "item 2",
+                "quantity": 2,
+                "note": "Add more nuts",
+                "isreminded": false,
+                "specialrequest": [
+                    {
+                        "name": "add beef 1"
+                    }
+                ]
+            },
+            {
+                "checkdetailid": 5,
+                "itemname": "item 2",
+                "quantity": 3,
+                "note": "Add more nuts",
+                "isreminded": false,
+                "specialrequest": [
+                    {
+                        "name": "add ice 1"
+                    },
+                    {
+                        "name": "add tea 1"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "checkid": 9,
+        "checkno": "ARdKoYfK",
+        "runningsince": null,
+        "checkdetail": [
+            {
+                "checkdetailid": 6,
+                "itemname": "item 2",
+                "quantity": 2,
+                "note": "Add more nuts",
+                "isreminded": true,
+                "specialrequest": [
+                    {
+                        "name": "add beef 1"
+                    }
+                ]
+            },
+            {
+                "checkdetailid": 7,
+                "itemname": "item 2",
+                "quantity": 2,
+                "note": "Add more nuts",
+                "isreminded": false,
+                "specialrequest": [
+                    {
+                        "name": "add beef 1"
+                    }
+                ]
+            },
+            {
+                "checkdetailid": 8,
+                "itemname": "item 2",
+                "quantity": 3,
+                "note": "Add more nuts",
+                "isreminded": false,
+                "specialrequest": [
+                    {
+                        "name": "add ice 1"
+                    },
+                    {
+                        "name": "add tea 1"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "checkid": 10,
+        "checkno": "om41ymDP",
+        "runningsince": null,
+        "checkdetail": [
+            {
+                "checkdetailid": 9,
+                "itemname": "item 2",
+                "quantity": 2,
+                "note": "Add more nuts",
+                "isreminded": false,
+                "specialrequest": [
+                    {
+                        "name": "add beef 1"
+                    }
+                ]
+            },
+            {
+                "checkdetailid": 10,
                 "itemname": "item 2",
                 "quantity": 3,
                 "note": "Add more nuts",

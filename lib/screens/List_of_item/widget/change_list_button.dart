@@ -1,13 +1,13 @@
 import 'package:chef_application/config/theme.dart';
 import 'package:flutter/material.dart';
 
-class ActionButton extends StatelessWidget {
+class ChangeListButton extends StatelessWidget {
   final String text;
   final Function() press;
   final IconData icon;
   final Color color;
 
-  ActionButton(
+  ChangeListButton(
       {required this.text,
       required this.press,
       required this.icon,
@@ -17,7 +17,7 @@ class ActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      width: size.height * 0.45,
+      width: size.height * 0.1,
       height: size.height * 0.1,
       child: ElevatedButton(
         child: Column(

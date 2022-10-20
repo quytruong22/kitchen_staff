@@ -24,7 +24,7 @@ class _OrderItemViewState extends State<OrderItemView> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      width: size.width * 0.2,
+      width: size.width * 0.25,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.zero,

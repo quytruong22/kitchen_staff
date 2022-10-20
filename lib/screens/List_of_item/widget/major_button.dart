@@ -25,7 +25,7 @@ class MajorButton extends StatelessWidget {
           children: <Widget>[
             Icon(
               icon,
-              color: Colors.black,
+              color: sideBarColor,
               size: 34,
             ),
             const SizedBox(
@@ -36,7 +36,7 @@ class MajorButton extends StatelessWidget {
                 text,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
-                  color: Colors.black,
+                  color: sideBarColor,
                   fontSize: 10,
                 ),
               ),

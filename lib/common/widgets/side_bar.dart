@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../config/routes.dart';
 import '../../config/theme.dart';
 
 class SideBar extends StatefulWidget {
-  const SideBar({Key? key}) : super(key: key);
+  final int selectedIndex;
+  SideBar({required this.selectedIndex});
 
   @override
   State<SideBar> createState() => _SideBarState();
@@ -12,18 +12,23 @@ class SideBar extends StatefulWidget {
 class _SideBarState extends State<SideBar> {
   @override
   Widget build(BuildContext context) {
+    Color order = deactiveColor;
+    Color item = deactiveColor;
+    if (widget.selectedIndex == 1) {
+      order = textLightColor;
+    }
+    if (widget.selectedIndex == 2) {
+      item = textLightColor;
+    }
     return Stack(
       children: <Widget>[
         Container(
           color: sideBarColor,
           child: SizedBox(
             height: MediaQuery.of(context).size.height - defaultPadding * 1.5,
-            // width: defaultPadding * 6,
             width: MediaQuery.of(context).size.width / 14,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              // mainAxisSize: MainAxisSize.max,
-              // crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Column(
                   children: [
@@ -33,24 +38,20 @@ class _SideBarState extends State<SideBar> {
                       },
                       style: TextButton.styleFrom(
                         backgroundColor: sideBarColor,
-                        // textStyle: GoogleFonts.fredokaOne(),
                       ),
-                      // color: sideBarColor,
-                      // padding: const EdgeInsets.all(20),
                       child: Column(
-                        // Replace with a Row for horizontal icon + text
-                        children: const <Widget>[
+                        children: <Widget>[
                           Icon(
                             Icons.shower,
                             size: 50,
-                            color: textLightColor,
+                            color: order,
                           ),
                           Text(
                             "MÓN ĐANG NẤU",
                             style: TextStyle(
                               fontSize: 10.5,
                               fontWeight: FontWeight.w700,
-                              color: textLightColor,
+                              color: order,
                             ),
                             textAlign: TextAlign.center,
                           ),
@@ -63,24 +64,20 @@ class _SideBarState extends State<SideBar> {
                       },
                       style: TextButton.styleFrom(
                         backgroundColor: sideBarColor,
-                        // textStyle: GoogleFonts.fredokaOne(),
                       ),
-                      // color: sideBarColor,
-                      // padding: const EdgeInsets.all(20),
                       child: Column(
-                        // Replace with a Row for horizontal icon + text
-                        children: const <Widget>[
+                        children: <Widget>[
                           Icon(
                             Icons.book,
                             size: 50,
-                            color: textLightColor,
+                            color: item,
                           ),
                           Text(
                             "DANH SÁCH MÓN ĂN",
                             style: TextStyle(
                               fontSize: 10.5,
                               fontWeight: FontWeight.w700,
-                              color: textLightColor,
+                              color: item,
                             ),
                             textAlign: TextAlign.center,
                           ),
@@ -96,10 +93,7 @@ class _SideBarState extends State<SideBar> {
                   style: TextButton.styleFrom(
                     backgroundColor: sideBarColor,
                   ),
-                  // color: sideBarColor,
-                  // padding: const EdgeInsets.all(20),
                   child: Column(
-                    // Replace with a Row for horizontal icon + text
                     children: const <Widget>[
                       Icon(
                         Icons.logout,
