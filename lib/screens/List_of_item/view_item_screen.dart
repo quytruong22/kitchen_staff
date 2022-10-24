@@ -4,9 +4,12 @@ import 'package:chef_application/common/widgets/action_button.dart';
 import 'package:chef_application/common/widgets/background.dart';
 import 'package:chef_application/common/widgets/side_bar.dart';
 import 'package:chef_application/repos/models/item_obj.dart';
+import 'package:chef_application/repos/models/major_group_obj.dart';
+import 'package:chef_application/repos/models/menu_obj.dart';
 import 'package:chef_application/screens/List_of_item/widget/change_list_button.dart';
 import 'package:chef_application/screens/List_of_item/widget/item_view.dart';
 import 'package:chef_application/screens/List_of_item/widget/major_button.dart';
+import 'package:chef_application/screens/List_of_item/widget/menu_button.dart';
 import 'package:flutter/material.dart';
 
 import 'package:chef_application/config/theme.dart';
@@ -18,25 +21,71 @@ class ListItem extends StatefulWidget {
 
 class _ListItemState extends State<ListItem> {
   bool selectedList = false;
-  String title = 'Các món ăn hiện có';
-  List<ItemDTO> list = [
-    ItemDTO(id: '1'),
-    ItemDTO(id: '2'),
-    ItemDTO(id: '3'),
-    ItemDTO(id: '4'),
-    ItemDTO(id: '5'),
-    ItemDTO(id: '6'),
-    ItemDTO(id: '7'),
-    ItemDTO(id: '8'),
-    ItemDTO(id: '9'),
-    ItemDTO(id: '10'),
-    ItemDTO(id: '11'),
+  String title = 'Danh sách món ăn hiện có';
+  int selectedMajorIndex = -1;
+  int selectedMenuIndex = -1;
+  Color allbgColor = sideBarColor;
+  Color alltxtColor = textLightColor;
+  List<ItemDTO> listShow = [];
+  List<ItemDTO> listItem = [
+    ItemDTO(
+        id: 1,
+        name: 'Lẩu Cua Đồng',
+        majorGroupid: 1,
+        imageLink:
+            'https://cdn.discordapp.com/attachments/900392963639750657/1033187975498047598/unknown.png'),
+    ItemDTO(
+        id: 2,
+        name: 'Lẩu Bò',
+        majorGroupid: 2,
+        imageLink:
+            'https://cdn.discordapp.com/attachments/900392963639750657/1033188022746877982/unknown.png'),
+    ItemDTO(
+        id: 3,
+        name: 'Lẩu Thái',
+        majorGroupid: 3,
+        imageLink:
+            'https://cdn.discordapp.com/attachments/900392963639750657/1033188064425689148/unknown.png'),
+    ItemDTO(
+        id: 4,
+        name: 'Lẩu Cá Thác Lác',
+        majorGroupid: 4,
+        imageLink:
+            'https://cdn.discordapp.com/attachments/900392963639750657/1033188104816824420/unknown.png'),
+    ItemDTO(
+        id: 5,
+        name: 'Lẩu Cá Kèo',
+        majorGroupid: 4,
+        imageLink:
+            'https://cdn.discordapp.com/attachments/900392963639750657/1033188922416713798/unknown.png'),
   ];
+  List<MajorGroup> listMajor = [
+    MajorGroup(name: 'MÓN KHAI VỊ', id: 0),
+    MajorGroup(name: 'LẨU CUA', id: 1),
+    MajorGroup(name: 'LẨU BÒ', id: 2),
+    MajorGroup(name: 'LẨU THÁI', id: 3),
+    MajorGroup(name: 'LẨU CÁ', id: 4),
+    MajorGroup(name: 'MÓN NƯỚNG', id: 5),
+    MajorGroup(name: 'MÓN TRÁNG MIỆNG', id: 6),
+    MajorGroup(name: 'NƯỚC UỐNG', id: 7),
+  ];
+
+  List<Menu> listMenu = [
+    Menu(name: 'MENU 1'),
+    Menu(name: 'MENU 2'),
+    Menu(name: 'MENU 3'),
+  ];
+
+  @override
+  void initState() {
+    listShow = listItem;
+    super.initState();
+  }
 
   Widget ActionBar(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     if (selectedList) {
-      title = 'Các món ăn hiện có';
+      title = 'Danh sách món ăn hiện có';
       return Container(
         color: primaryColor,
         width: size.width - size.width / 14,
@@ -50,7 +99,7 @@ class _ListItemState extends State<ListItem> {
                   text: "NHẬP HÀNG",
                   press: () {
                     List<ItemDTO> selectList = [];
-                    for (var e in list) {
+                    for (var e in listItem) {
                       if (e.isSelected) {
                         selectList.add(e);
                       }
@@ -62,7 +111,7 @@ class _ListItemState extends State<ListItem> {
                   color: activeColor),
             ),
             ChangeListButton(
-                text: "MÓN HIỆN CÓ",
+                text: "DANH SÁCH MÓN HIỆN CÓ",
                 press: () {
                   setState(() {
                     selectedList = false;
@@ -74,7 +123,7 @@ class _ListItemState extends State<ListItem> {
         ),
       );
     } else {
-      title = 'Các món ăn đã hết';
+      title = 'Danh sách món ăn đã hết';
       return Container(
         color: primaryColor,
         width: size.width - size.width / 14,
@@ -88,7 +137,7 @@ class _ListItemState extends State<ListItem> {
                   text: "ĐÃ HẾT",
                   press: () {
                     List<ItemDTO> selectList = [];
-                    for (var e in list) {
+                    for (var e in listItem) {
                       if (e.isSelected) {
                         selectList.add(e);
                       }
@@ -100,7 +149,7 @@ class _ListItemState extends State<ListItem> {
                   color: voidColor),
             ),
             ChangeListButton(
-                text: "MÓN ĐÃ HẾT",
+                text: "DANH SÁCH MÓN ĐÃ HẾT",
                 press: () {
                   setState(() {
                     selectedList = true;
@@ -114,7 +163,7 @@ class _ListItemState extends State<ListItem> {
     }
   }
 
-  List<CardItem> listCheck(BuildContext context, List<ItemDTO> list) {
+  List<CardItem> listItemWidget(BuildContext context, List<ItemDTO> list) {
     return list.map((e) => CardItem(item: e)).toList();
   }
 
@@ -169,95 +218,127 @@ class _ListItemState extends State<ListItem> {
                   height: size.height * 0.01,
                 ),
                 SizedBox(
-                  height: size.height * 0.15,
+                  height: size.height * 0.1,
                   width: size.width - defaultPadding * 6,
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 10,
-                        ),
-                        MajorButton(
-                            text: 'TẤT CẢ',
-                            press: () {},
-                            icon: Icons.restaurant_menu,
-                            color: textLightColor),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        MajorButton(
-                            text: 'Khai vị',
-                            press: () {},
-                            icon: Icons.brunch_dining,
-                            color: textLightColor),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        MajorButton(
-                            text: 'Món chính',
-                            press: () {},
-                            icon: Icons.rice_bowl,
-                            color: textLightColor),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        MajorButton(
-                            text: 'Tráng miệng',
-                            press: () {},
-                            icon: Icons.cake,
-                            color: textLightColor),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        MajorButton(
-                            text: 'Nước uống',
-                            press: () {},
-                            icon: Icons.local_drink,
-                            color: textLightColor),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        MajorButton(
-                            text: 'Burger',
-                            press: () {},
-                            icon: Icons.lunch_dining,
-                            color: textLightColor),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        MajorButton(
-                            text: 'Pizza',
-                            press: () {},
-                            icon: Icons.local_pizza,
-                            color: textLightColor),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        MajorButton(
-                            text: 'Món nướng',
-                            press: () {},
-                            icon: Icons.kebab_dining,
-                            color: textLightColor),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        MajorButton(
-                            text: 'Hải sản',
-                            press: () {},
-                            icon: Icons.set_meal,
-                            color: textLightColor),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        MajorButton(
-                            text: 'Phở/Mì',
-                            press: () {},
-                            icon: Icons.ramen_dining,
-                            color: textLightColor),
-                      ],
-                    ),
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: 10,
+                          ),
+                          MajorButton(
+                              text: 'TẤT CẢ',
+                              press: () {
+                                if (selectedMajorIndex != -1) {
+                                  setState(() {
+                                    listShow = listItem;
+                                    selectedMajorIndex = -1;
+                                    selectedMenuIndex = -1;
+                                    alltxtColor = textLightColor;
+                                    allbgColor = sideBarColor;
+                                  });
+                                }
+                              },
+                              txtColor: alltxtColor,
+                              backgroundcolor: allbgColor),
+                          ...listMajor.map((e) {
+                            if (listMajor.indexOf(e) == selectedMajorIndex) {
+                              return Row(
+                                children: [
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  MajorButton(
+                                    text: e.name,
+                                    press: () {},
+                                    txtColor: textLightColor,
+                                    backgroundcolor: sideBarColor,
+                                  ),
+                                ],
+                              );
+                            } else {
+                              return Row(
+                                children: [
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  MajorButton(
+                                    text: e.name,
+                                    press: () {
+                                      setState(() {
+                                        selectedMajorIndex =
+                                            listMajor.indexOf(e);
+                                        allbgColor = textLightColor;
+                                        alltxtColor = sideBarColor;
+                                        listShow = [];
+                                        for (var element in listItem) {
+                                          if (element.majorGroupid == e.id) {
+                                            listShow.add(element);
+                                          }
+                                        }
+                                      });
+                                    },
+                                    backgroundcolor: textLightColor,
+                                    txtColor: sideBarColor,
+                                  ),
+                                ],
+                              );
+                            }
+                          }).toList(),
+                        ]),
+                  ),
+                ),
+                SizedBox(
+                  height: size.height * 0.01,
+                ),
+                SizedBox(
+                  height: size.height * 0.07,
+                  width: size.width - defaultPadding * 6,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          ...listMenu.map((e) {
+                            if (listMenu.indexOf(e) == selectedMenuIndex) {
+                              return Row(
+                                children: [
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  MenuButton(
+                                    text: e.name,
+                                    press: () {},
+                                    txtColor: textLightColor,
+                                    backgroundcolor: sideBarColor,
+                                  ),
+                                ],
+                              );
+                            } else {
+                              return Row(
+                                children: [
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  MenuButton(
+                                    text: e.name,
+                                    press: () {
+                                      setState(() {
+                                        selectedMenuIndex = listMenu.indexOf(e);
+                                        allbgColor = textLightColor;
+                                        alltxtColor = sideBarColor;
+                                      });
+                                    },
+                                    backgroundcolor: textLightColor,
+                                    txtColor: sideBarColor,
+                                  ),
+                                ],
+                              );
+                            }
+                          }).toList(),
+                        ]),
                   ),
                 ),
                 SizedBox(
@@ -266,11 +347,11 @@ class _ListItemState extends State<ListItem> {
                 Expanded(
                     child: SizedBox(
                   width: size.width - defaultPadding * 6,
-                  height: size.height * 0.65,
+                  height: size.height * 0.58,
                   child: GridView.count(
                     crossAxisSpacing: 10,
                     crossAxisCount: 5,
-                    children: [...listCheck(context, list)],
+                    children: [...listItemWidget(context, listShow)],
                   ),
                 )),
                 ActionBar(context)

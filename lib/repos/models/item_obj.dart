@@ -1,8 +1,15 @@
 class ItemDTO {
-  final String id;
+  final int id;
+  final String imageLink;
+  final String name;
+  final int majorGroupid;
   bool isSelected = false;
 
-  ItemDTO({required this.id});
+  ItemDTO(
+      {required this.id,
+      required this.imageLink,
+      required this.name,
+      required this.majorGroupid});
 
   set setIsSeleceted(bool newValue) {
     isSelected = newValue;

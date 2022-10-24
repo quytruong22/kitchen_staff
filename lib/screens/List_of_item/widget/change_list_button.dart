@@ -45,12 +45,12 @@ class ChangeListButton extends StatelessWidget {
         ),
         onPressed: press,
         style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          ),
-          backgroundColor: color,
-          elevation: 1,
-        ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5),
+            ),
+            backgroundColor: color,
+            elevation: 1,
+            padding: EdgeInsets.zero),
       ),
     );
   }

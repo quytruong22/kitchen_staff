@@ -1,13 +1,13 @@
 import 'package:chef_application/config/theme.dart';
 import 'package:flutter/material.dart';
 
-class MajorButton extends StatelessWidget {
+class MenuButton extends StatelessWidget {
   final String text;
   final Function() press;
   final Color backgroundcolor;
   final Color txtColor;
 
-  MajorButton(
+  MenuButton(
       {required this.text,
       required this.press,
       required this.backgroundcolor,
@@ -17,8 +17,8 @@ class MajorButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      width: size.height * 0.1,
-      height: size.height * 0.1,
+      width: size.height * 0.12,
+      height: size.height * 0.07,
       child: ElevatedButton(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -44,13 +44,17 @@ class _CardItemState extends State<CardItem> {
             Flexible(
                 flex: 3,
                 child: Container(
+                    width: size.width,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(6.0),
                             topRight: Radius.circular(6.0)),
-                        color: shadowColor))),
+                        image: DecorationImage(
+                          image: NetworkImage(widget.item.imageLink),
+                          fit: BoxFit.cover,
+                        )))),
             Flexible(
-                flex: 2,
+                flex: 1,
                 child: Container(
                   width: size.width,
                   color: backgroundColor(context),
@@ -59,13 +63,7 @@ class _CardItemState extends State<CardItem> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Xúc xích chiên'),
-                      Text.rich(TextSpan(children: [
-                        TextSpan(
-                            text: '10.000',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        TextSpan(text: ' VND')
-                      ]))
+                      Text(widget.item.name),
                     ],
                   ),
                 ))

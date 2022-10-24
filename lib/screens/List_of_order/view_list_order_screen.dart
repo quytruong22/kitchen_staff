@@ -55,7 +55,7 @@ class _ListOrderState extends State<ListOrder> {
                   height: size.height * 0.12,
                   alignment: Alignment.center,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       ActionButton(
                           text: "HOÀN THÀNH",
