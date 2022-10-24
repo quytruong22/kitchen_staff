@@ -28,9 +28,9 @@ class _CardItemState extends State<CardItem> {
       onTap: (() {
         setState(() {
           if (widget.item.isSelected) {
-            widget.item.setIsSeleceted = false;
+            widget.item.setIsSelected = false;
           } else {
-            widget.item.setIsSeleceted = true;
+            widget.item.setIsSelected = true;
           }
         });
       }),

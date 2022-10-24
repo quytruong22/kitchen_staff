@@ -20,45 +20,15 @@ class ListItem extends StatefulWidget {
 }
 
 class _ListItemState extends State<ListItem> {
-  bool selectedList = false;
+  bool changelist = false;
   String title = 'Danh sách món ăn hiện có';
+  String searchName = '';
   int selectedMajorIndex = -1;
   int selectedMenuIndex = -1;
   Color allbgColor = sideBarColor;
   Color alltxtColor = textLightColor;
   List<ItemDTO> listShow = [];
-  List<ItemDTO> listItem = [
-    ItemDTO(
-        id: 1,
-        name: 'Lẩu Cua Đồng',
-        majorGroupid: 1,
-        imageLink:
-            'https://cdn.discordapp.com/attachments/900392963639750657/1033187975498047598/unknown.png'),
-    ItemDTO(
-        id: 2,
-        name: 'Lẩu Bò',
-        majorGroupid: 2,
-        imageLink:
-            'https://cdn.discordapp.com/attachments/900392963639750657/1033188022746877982/unknown.png'),
-    ItemDTO(
-        id: 3,
-        name: 'Lẩu Thái',
-        majorGroupid: 3,
-        imageLink:
-            'https://cdn.discordapp.com/attachments/900392963639750657/1033188064425689148/unknown.png'),
-    ItemDTO(
-        id: 4,
-        name: 'Lẩu Cá Thác Lác',
-        majorGroupid: 4,
-        imageLink:
-            'https://cdn.discordapp.com/attachments/900392963639750657/1033188104816824420/unknown.png'),
-    ItemDTO(
-        id: 5,
-        name: 'Lẩu Cá Kèo',
-        majorGroupid: 4,
-        imageLink:
-            'https://cdn.discordapp.com/attachments/900392963639750657/1033188922416713798/unknown.png'),
-  ];
+
   List<MajorGroup> listMajor = [
     MajorGroup(name: 'MÓN KHAI VỊ', id: 0),
     MajorGroup(name: 'LẨU CUA', id: 1),
@@ -71,21 +41,116 @@ class _ListItemState extends State<ListItem> {
   ];
 
   List<Menu> listMenu = [
-    Menu(name: 'MENU 1'),
-    Menu(name: 'MENU 2'),
-    Menu(name: 'MENU 3'),
+    Menu(name: 'MENU 1', listItem: [
+      ItemDTO(
+          id: 1,
+          name: 'Lẩu Cua Đồng',
+          majorGroupid: 1,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1033187975498047598/unknown.png'),
+      ItemDTO(
+          id: 4,
+          name: 'Lẩu Cá Thác Lác',
+          majorGroupid: 4,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1033188104816824420/unknown.png'),
+    ]),
+    Menu(name: 'MENU 2', listItem: [
+      ItemDTO(
+          id: 2,
+          name: 'Lẩu Bò',
+          majorGroupid: 2,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1033188022746877982/unknown.png'),
+      ItemDTO(
+          id: 5,
+          name: 'Lẩu Cá Kèo',
+          majorGroupid: 4,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1033188922416713798/unknown.png'),
+    ]),
+    Menu(name: 'MENU 3', listItem: [
+      ItemDTO(
+          id: 3,
+          name: 'Lẩu Thái',
+          majorGroupid: 3,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1033188064425689148/unknown.png'),
+      ItemDTO(
+          id: 4,
+          name: 'Lẩu Cá Thác Lác',
+          majorGroupid: 4,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1033188104816824420/unknown.png'),
+      ItemDTO(
+          id: 5,
+          name: 'Lẩu Cá Kèo',
+          majorGroupid: 4,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1033188922416713798/unknown.png'),
+    ]),
   ];
+
+  void updateList() {
+    // unselect item
+    for (var item in listShow) {
+      item.setIsSelected = false;
+    }
+    // null item
+    listShow = [];
+    // menu filter
+    if (selectedMenuIndex == -1) {
+      for (var menu in listMenu) {
+        for (var item in menu.listItem) {
+          bool confirm = true;
+          for (var itemshowed in listShow) {
+            if (item.id == itemshowed.id) {
+              confirm = false;
+              break;
+            }
+          }
+          if (confirm) {
+            listShow.add(item);
+          }
+        }
+      }
+    } else {
+      listShow = listMenu.elementAt(selectedMenuIndex).listItem;
+    }
+    // major filter
+    if (selectedMajorIndex != -1) {
+      List<ItemDTO> list = [];
+      for (var item in listShow) {
+        if (item.majorGroupid == listMajor.elementAt(selectedMajorIndex).id) {
+          list.add(item);
+        }
+      }
+      listShow = list;
+    }
+    // search
+    if (searchName != '') {
+      List<ItemDTO> listSearch = [];
+      for (var item in listShow) {
+        String search = searchName.toLowerCase();
+        String itemsearched = item.name.toLowerCase();
+        if (itemsearched.contains(search)) {
+          listSearch.add(item);
+        }
+      }
+      listShow = listSearch;
+    }
+    // sort
+  }
 
   @override
   void initState() {
-    listShow = listItem;
+    updateList();
     super.initState();
   }
 
   Widget ActionBar(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    if (selectedList) {
-      title = 'Danh sách món ăn hiện có';
+    if (changelist) {
       return Container(
         color: primaryColor,
         width: size.width - size.width / 14,
@@ -99,13 +164,15 @@ class _ListItemState extends State<ListItem> {
                   text: "NHẬP HÀNG",
                   press: () {
                     List<ItemDTO> selectList = [];
-                    for (var e in listItem) {
+                    for (var e in listShow) {
                       if (e.isSelected) {
                         selectList.add(e);
                       }
                     }
-                    String jsonList = jsonEncode(selectList);
-                    print(jsonList);
+                    if (selectList != []) {
+                      String jsonList = jsonEncode(selectList);
+                      print(jsonList);
+                    }
                   },
                   icon: Icons.remove_shopping_cart_outlined,
                   color: activeColor),
@@ -114,7 +181,8 @@ class _ListItemState extends State<ListItem> {
                 text: "DANH SÁCH MÓN HIỆN CÓ",
                 press: () {
                   setState(() {
-                    selectedList = false;
+                    changelist = false;
+                    title = 'Danh sách món ăn hiện có';
                   });
                 },
                 icon: Icons.book,
@@ -123,7 +191,6 @@ class _ListItemState extends State<ListItem> {
         ),
       );
     } else {
-      title = 'Danh sách món ăn đã hết';
       return Container(
         color: primaryColor,
         width: size.width - size.width / 14,
@@ -137,13 +204,15 @@ class _ListItemState extends State<ListItem> {
                   text: "ĐÃ HẾT",
                   press: () {
                     List<ItemDTO> selectList = [];
-                    for (var e in listItem) {
+                    for (var e in listShow) {
                       if (e.isSelected) {
                         selectList.add(e);
                       }
                     }
-                    String jsonList = jsonEncode(selectList);
-                    print(jsonList);
+                    if (selectList != []) {
+                      String jsonList = jsonEncode(selectList);
+                      print(jsonList);
+                    }
                   },
                   icon: Icons.add_shopping_cart,
                   color: voidColor),
@@ -152,7 +221,8 @@ class _ListItemState extends State<ListItem> {
                 text: "DANH SÁCH MÓN ĐÃ HẾT",
                 press: () {
                   setState(() {
-                    selectedList = true;
+                    changelist = true;
+                    title = 'Danh sách món ăn đã hết';
                   });
                 },
                 icon: Icons.book,
@@ -198,12 +268,18 @@ class _ListItemState extends State<ListItem> {
                         width: size.width * 0.6,
                         height: size.height * 0.05,
                         child: TextFormField(
+                          onChanged: (value) {
+                            setState(() {
+                              searchName = value;
+                              updateList();
+                            });
+                          },
                           textInputAction: TextInputAction.next,
                           cursorColor: primaryColor,
                           decoration: const InputDecoration(
                             contentPadding: EdgeInsets.zero,
                             fillColor: deactiveLightColor,
-                            hintText: "Tìm kiếm món ăn",
+                            hintText: "Tìm kiếm tên món ăn",
                             prefixIcon: Padding(
                               padding: EdgeInsets.zero,
                               child: Icon(Icons.search),
@@ -231,11 +307,12 @@ class _ListItemState extends State<ListItem> {
                           MajorButton(
                               text: 'TẤT CẢ',
                               press: () {
-                                if (selectedMajorIndex != -1) {
+                                if (selectedMajorIndex != -1 ||
+                                    selectedMenuIndex != -1) {
                                   setState(() {
-                                    listShow = listItem;
                                     selectedMajorIndex = -1;
                                     selectedMenuIndex = -1;
+                                    updateList();
                                     alltxtColor = textLightColor;
                                     allbgColor = sideBarColor;
                                   });
@@ -270,14 +347,9 @@ class _ListItemState extends State<ListItem> {
                                       setState(() {
                                         selectedMajorIndex =
                                             listMajor.indexOf(e);
+                                        updateList();
                                         allbgColor = textLightColor;
                                         alltxtColor = sideBarColor;
-                                        listShow = [];
-                                        for (var element in listItem) {
-                                          if (element.majorGroupid == e.id) {
-                                            listShow.add(element);
-                                          }
-                                        }
                                       });
                                     },
                                     backgroundcolor: textLightColor,
@@ -327,6 +399,7 @@ class _ListItemState extends State<ListItem> {
                                     press: () {
                                       setState(() {
                                         selectedMenuIndex = listMenu.indexOf(e);
+                                        updateList();
                                         allbgColor = textLightColor;
                                         alltxtColor = sideBarColor;
                                       });

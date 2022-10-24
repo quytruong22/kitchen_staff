@@ -11,7 +11,7 @@ class ItemDTO {
       required this.name,
       required this.majorGroupid});
 
-  set setIsSeleceted(bool newValue) {
+  set setIsSelected(bool newValue) {
     isSelected = newValue;
   }
 
