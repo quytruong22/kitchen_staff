@@ -1,3 +1,4 @@
+import 'package:chef_application/repos/socket.dart';
 import 'package:flutter/material.dart';
 import 'package:chef_application/config/theme.dart';
 
@@ -6,8 +7,22 @@ import '../../common/widgets/responsive.dart';
 import 'widget/login_form.dart';
 import 'widget/login_screen_image.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  Socket socket = Socket();
+
+  @override
+  void initState() {
+    super.initState();
+    socket.declareSocket();
+    socket.connectServer();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +52,10 @@ class LoginScreen extends StatelessWidget {
                   width: 300,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
+                    children: [
                       SizedBox(
                         width: 390,
-                        child: LoginForm(),
+                        child: LoginForm(socket: socket),
                       ),
                     ],
                   ),

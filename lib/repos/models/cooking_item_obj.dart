@@ -17,7 +17,7 @@ class CheckDetailDTO {
       required this.isreminded,
       required this.specialrequest});
 
-  set setIsSeleceted(bool newValue) {
+  set setIsSelected(bool newValue) {
     isSelected = newValue;
   }
 

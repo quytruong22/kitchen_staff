@@ -34,27 +34,53 @@ class _OrderViewState extends State<OrderView> {
           children: [
             Container(
               height: 35,
-              padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
               decoration: const BoxDecoration(
                 border: Border(
                   bottom: BorderSide(color: textColor),
                 ),
-                color: activeColor,
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(widget.check.checkno,
-                      style: const TextStyle(
-                          color: textLightColor,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold)),
-                  Text(widget.check.runningsince,
-                      style: const TextStyle(
-                          color: textLightColor,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold)),
-                ],
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(0),
+                    ),
+                    backgroundColor: activeColor),
+                onPressed: (() {
+                  setState(() {
+                    bool confirm = true;
+                    for (var checkdetail in widget.check.checkdetail) {
+                      if (!checkdetail.isSelected) {
+                        confirm = false;
+                        break;
+                      }
+                    }
+                    if (confirm) {
+                      for (var checkdetail in widget.check.checkdetail) {
+                        checkdetail.setIsSelected = false;
+                      }
+                    } else {
+                      for (var checkdetail in widget.check.checkdetail) {
+                        checkdetail.setIsSelected = true;
+                      }
+                    }
+                  });
+                }),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(widget.check.checkno,
+                        style: const TextStyle(
+                            color: textLightColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold)),
+                    Text(widget.check.runningsince,
+                        style: const TextStyle(
+                            color: textLightColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold)),
+                  ],
+                ),
               ),
             ),
             ...widget.check.checkdetail

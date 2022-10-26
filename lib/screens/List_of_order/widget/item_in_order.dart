@@ -37,59 +37,57 @@ class _OrderItemViewState extends State<OrderItemView> {
         onPressed: (() {
           setState(() {
             if (widget.checkDetail.isSelected) {
-              widget.checkDetail.setIsSeleceted = false;
+              widget.checkDetail.setIsSelected = false;
             } else {
-              widget.checkDetail.setIsSeleceted = true;
+              widget.checkDetail.setIsSelected = true;
             }
           });
         }),
-        child: Container(
-          child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  width: size.width * 0.02,
-                  child: Text(
-                    widget.checkDetail.quantity.toString(),
-                    style: const TextStyle(
-                        color: textColor,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
+        child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                width: size.width * 0.02,
+                child: Text(
+                  widget.checkDetail.quantity.toString(),
+                  style: const TextStyle(
+                      color: textColor,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
                 ),
-                Container(
-                  width: size.width * 0.18 - 2,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.checkDetail.itemname,
-                        style: const TextStyle(
-                            color: textColor,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.left,
-                      ),
-                      Text.rich(TextSpan(
-                          children: widget.checkDetail.specialrequest
-                              .map((e) => TextSpan(
-                                    text: e.name + ', ',
-                                    style: const TextStyle(
-                                        color: textColor, fontSize: 12),
-                                  ))
-                              .toList())),
-                      Text(
-                        widget.checkDetail.note,
-                        style: const TextStyle(color: textColor, fontSize: 12),
-                        textAlign: TextAlign.left,
-                      ),
-                    ],
-                  ),
-                )
-              ]),
-        ),
+              ),
+              Container(
+                width: size.width * 0.18 - 2,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.checkDetail.itemname,
+                      style: const TextStyle(
+                          color: textColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.left,
+                    ),
+                    Text.rich(TextSpan(
+                        children: widget.checkDetail.specialrequest
+                            .map((e) => TextSpan(
+                                  text: e.name + ', ',
+                                  style: const TextStyle(
+                                      color: textColor, fontSize: 12),
+                                ))
+                            .toList())),
+                    Text(
+                      widget.checkDetail.note,
+                      style: const TextStyle(color: textColor, fontSize: 12),
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
+                ),
+              )
+            ]),
       ),
     );
   }

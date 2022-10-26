@@ -8,3 +8,14 @@ class MajorGroup {
     return MajorGroup(name: json['name'], id: json['id']);
   }
 }
+
+class ListMajorGroup {
+  final List<MajorGroup> list;
+  ListMajorGroup({required this.list});
+
+  factory ListMajorGroup.fromJson(List<dynamic> parseJson) {
+    List<MajorGroup> list =
+        parseJson.map((e) => MajorGroup.fromJson(e)).toList();
+    return ListMajorGroup(list: list);
+  }
+}

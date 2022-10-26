@@ -130,8 +130,8 @@ class _ListItemState extends State<ListItem> {
     // search
     if (searchName != '') {
       List<ItemDTO> listSearch = [];
+      String search = searchName.toLowerCase().trim();
       for (var item in listShow) {
-        String search = searchName.toLowerCase();
         String itemsearched = item.name.toLowerCase();
         if (itemsearched.contains(search)) {
           listSearch.add(item);

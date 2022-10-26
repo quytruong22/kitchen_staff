@@ -21,10 +21,32 @@ class _ListOrderState extends State<ListOrder> {
     return list.map((e) => OrderView(check: e)).toList();
   }
 
+  List<CheckDTO> list = [];
+
+  void sendCheckDetail(int action) {
+    List<CheckDetailDTO> selectlist = [];
+    for (var e in list) {
+      for (var a in e.checkdetail) {
+        if (a.isSelected) {
+          selectlist.add(a);
+        }
+      }
+    }
+    if (selectlist.isNotEmpty) {
+      String jsonList = jsonEncode(selectlist);
+      print(jsonList);
+    }
+  }
+
+  @override
+  void initState() {
+    var myData = json.decode(data);
+    list = ListCheck.fromJson(myData).checks;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    var myData = json.decode(data);
-    List<CheckDTO> list = ListCheck.fromJson(myData).checks;
     Size size = MediaQuery.of(context).size;
     return Background(
         color: bgColor,
@@ -60,32 +82,14 @@ class _ListOrderState extends State<ListOrder> {
                       ActionButton(
                           text: "HOÀN THÀNH",
                           press: () {
-                            List<CheckDetailDTO> selectlist = [];
-                            for (var e in list) {
-                              for (var a in e.checkdetail) {
-                                if (a.isSelected) {
-                                  selectlist.add(a);
-                                }
-                              }
-                            }
-                            String jsonList = jsonEncode(selectlist);
-                            print(jsonList);
+                            sendCheckDetail(1);
                           },
                           icon: Icons.fastfood,
                           color: warningColor),
                       ActionButton(
                           text: "TRẢ LẠI",
                           press: () {
-                            List<CheckDetailDTO> selectlist = [];
-                            for (var e in list) {
-                              for (var a in e.checkdetail) {
-                                if (a.isSelected) {
-                                  selectlist.add(a);
-                                }
-                              }
-                            }
-                            String jsonList = jsonEncode(selectlist);
-                            print(jsonList);
+                            sendCheckDetail(2);
                           },
                           icon: Icons.no_food,
                           color: voidColor),

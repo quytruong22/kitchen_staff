@@ -37,7 +37,8 @@ class LoginScreenImage extends StatelessWidget {
                 flex: 8,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(15),
-                  child: Image.asset("assets/images/logo.png"),
+                  child: Image.network(
+                      'https://cdn.discordapp.com/attachments/900392963639750657/1034099310419267654/Logo.png'),
                 ),
               ),
               // const Spacer(),

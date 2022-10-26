@@ -1,24 +1,34 @@
+import 'package:chef_application/repos/service.dart';
+import 'package:chef_application/repos/socket.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../config/theme.dart';
 
 class LoginForm extends StatelessWidget {
-  const LoginForm({
-    Key? key,
-  }) : super(key: key);
+  Socket socket;
+  LoginForm({Key? key, required this.socket}) : super(key: key);
+  HttpService service = HttpService();
+
+  Future<bool> loginToSystem(String user, String password) async {
+    bool result = await service.login(user, password);
+    return result;
+  }
 
   @override
   Widget build(BuildContext context) {
+    String user = "";
+    String password = "";
     return Form(
       child: Column(
         children: [
           const SizedBox(height: defaultPadding * 3),
           TextFormField(
-            // keyboardType: TextInputType.emailAddress,
+            onChanged: (value) {
+              user = value;
+            },
             textInputAction: TextInputAction.next,
             cursorColor: primaryColor,
-            // onSaved: (email) {},
             decoration: const InputDecoration(
               fillColor: deactiveLightColor,
               hintText: "Tài khoản",
@@ -31,6 +41,9 @@ class LoginForm extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: defaultPadding),
             child: TextFormField(
+              onChanged: (value) {
+                password = value;
+              },
               textInputAction: TextInputAction.done,
               obscureText: true,
               cursorColor: textColor,
@@ -51,8 +64,13 @@ class LoginForm extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 primary: activeColor,
               ),
-              onPressed: () {
-                Navigator.of(context).pushNamed('/order');
+              onPressed: () async {
+                /*if (await loginToSystem(user, password)) {
+                  Navigator.of(context).pushNamed('/order');
+                } else {
+                  print("login failed");
+                }*/
+                Navigator.of(context).pushNamed('/order', arguments: socket);
               },
               child: Text(
                 "Đăng nhập".toUpperCase(),
@@ -66,8 +84,10 @@ class LoginForm extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 primary: voidColor,
               ),
-              onPressed: () => SystemNavigator.pop(),
-              // onPressed: () => exit(0),
+              onPressed: () {
+                socket.disconnectServer();
+                SystemNavigator.pop();
+              },
               child: Text(
                 "Thoát".toUpperCase(),
               ),
