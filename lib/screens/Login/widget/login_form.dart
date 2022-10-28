@@ -1,5 +1,5 @@
-import 'package:chef_application/repos/service.dart';
-import 'package:chef_application/repos/socket.dart';
+import 'package:chef_application/repos/service/service.dart';
+import 'package:chef_application/repos/service/socket.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

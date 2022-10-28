@@ -44,7 +44,7 @@ class _ListItemState extends State<ListItem> {
     Menu(name: 'MENU 1', listItem: [
       ItemDTO(
           id: 1,
-          name: 'Lẩu Cua Đồng',
+          name: 'Lẩu Cua Biển',
           majorGroupid: 1,
           imageLink:
               'https://cdn.discordapp.com/attachments/900392963639750657/1033187975498047598/unknown.png'),
@@ -54,6 +54,66 @@ class _ListItemState extends State<ListItem> {
           majorGroupid: 4,
           imageLink:
               'https://cdn.discordapp.com/attachments/900392963639750657/1033188104816824420/unknown.png'),
+      ItemDTO(
+          id: 6,
+          name: 'Ba Chỉ Bò Cuộn Nấm Kim Châm Nướng',
+          majorGroupid: 5,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034672879830315008/unknown.png'),
+      ItemDTO(
+          id: 9,
+          name: 'Thịt Xiên Nướng Rau Củ',
+          majorGroupid: 5,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034674296301289543/unknown.png'),
+      ItemDTO(
+          id: 10,
+          name: 'Mirinda Vị Soda Kem Việt Quất',
+          majorGroupid: 7,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034675517485498498/unknown.png'),
+      ItemDTO(
+          id: 11,
+          name: 'Coca Cola Chai',
+          majorGroupid: 7,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034675754581106708/unknown.png'),
+      ItemDTO(
+          id: 12,
+          name: 'Nước Chanh',
+          majorGroupid: 7,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034676236200448070/unknown.png'),
+      ItemDTO(
+          id: 13,
+          name: 'Trà Sữa Trân Châu Truyền Thống',
+          majorGroupid: 7,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034676660802424872/unknown.png'),
+      ItemDTO(
+          id: 14,
+          name: 'Kem Chuối',
+          majorGroupid: 6,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034678529490698270/unknown.png'),
+      ItemDTO(
+          id: 15,
+          name: 'Chè Khúc Bạch',
+          majorGroupid: 6,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034678853068669028/unknown.png'),
+      ItemDTO(
+          id: 18,
+          name: 'Tôm chiên xù',
+          majorGroupid: 0,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034679987963441173/unknown.png'),
+      ItemDTO(
+          id: 19,
+          name: 'Salad Hải Sản Chua Cay',
+          majorGroupid: 0,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034680137360347216/unknown.png'),
     ]),
     Menu(name: 'MENU 2', listItem: [
       ItemDTO(
@@ -68,6 +128,66 @@ class _ListItemState extends State<ListItem> {
           majorGroupid: 4,
           imageLink:
               'https://cdn.discordapp.com/attachments/900392963639750657/1033188922416713798/unknown.png'),
+      ItemDTO(
+          id: 23,
+          name: 'Lẩu Thái Hải Sản',
+          majorGroupid: 3,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034682747182133348/unknown.png'),
+      ItemDTO(
+          id: 24,
+          name: 'Lẩu Cua Đồng',
+          majorGroupid: 1,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034683713738518528/unknown.png'),
+      ItemDTO(
+          id: 7,
+          name: 'Tôm Nướng Muối Ớt',
+          majorGroupid: 5,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034673379367714866/unknown.png'),
+      ItemDTO(
+          id: 10,
+          name: 'Mirinda Vị Soda Kem Việt Quất',
+          majorGroupid: 7,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034675517485498498/unknown.png'),
+      ItemDTO(
+          id: 11,
+          name: 'Coca Cola Chai',
+          majorGroupid: 7,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034675754581106708/unknown.png'),
+      ItemDTO(
+          id: 12,
+          name: 'Nước Chanh',
+          majorGroupid: 7,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034676236200448070/unknown.png'),
+      ItemDTO(
+          id: 13,
+          name: 'Trà Sữa Trân Châu Truyền Thống',
+          majorGroupid: 7,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034676660802424872/unknown.png'),
+      ItemDTO(
+          id: 16,
+          name: 'Rau Câu Dừa',
+          majorGroupid: 6,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034679110036881459/unknown.png'),
+      ItemDTO(
+          id: 20,
+          name: 'Bánh KOROKKE Nhân Thịt Bò',
+          majorGroupid: 0,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034680048483061760/unknown.png'),
+      ItemDTO(
+          id: 21,
+          name: 'Bánh Xếp Nhân Thịt Heo Chiên Giòn',
+          majorGroupid: 0,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034680070683512882/unknown.png'),
     ]),
     Menu(name: 'MENU 3', listItem: [
       ItemDTO(
@@ -76,6 +196,12 @@ class _ListItemState extends State<ListItem> {
           majorGroupid: 3,
           imageLink:
               'https://cdn.discordapp.com/attachments/900392963639750657/1033188064425689148/unknown.png'),
+      ItemDTO(
+          id: 22,
+          name: 'Lẩu Thái Chay',
+          majorGroupid: 3,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034682297707937900/unknown.png'),
       ItemDTO(
           id: 4,
           name: 'Lẩu Cá Thác Lác',
@@ -88,6 +214,54 @@ class _ListItemState extends State<ListItem> {
           majorGroupid: 4,
           imageLink:
               'https://cdn.discordapp.com/attachments/900392963639750657/1033188922416713798/unknown.png'),
+      ItemDTO(
+          id: 8,
+          name: 'Bạch Tuột Nướng Sa Tế',
+          majorGroupid: 5,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034673692480905327/unknown.png'),
+      ItemDTO(
+          id: 10,
+          name: 'Mirinda Vị Soda Kem Việt Quất',
+          majorGroupid: 7,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034675517485498498/unknown.png'),
+      ItemDTO(
+          id: 11,
+          name: 'Coca Cola Chai',
+          majorGroupid: 7,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034675754581106708/unknown.png'),
+      ItemDTO(
+          id: 12,
+          name: 'Nước Chanh',
+          majorGroupid: 7,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034676236200448070/unknown.png'),
+      ItemDTO(
+          id: 13,
+          name: 'Trà Sữa Trân Châu Truyền Thống',
+          majorGroupid: 7,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034676660802424872/unknown.png'),
+      ItemDTO(
+          id: 17,
+          name: 'Chè 3 Màu',
+          majorGroupid: 6,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034679475440455700/unknown.png'),
+      ItemDTO(
+          id: 20,
+          name: 'Bánh KOROKKE Nhân Thịt Bò',
+          majorGroupid: 0,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034680048483061760/unknown.png'),
+      ItemDTO(
+          id: 18,
+          name: 'Tôm chiên xù',
+          majorGroupid: 0,
+          imageLink:
+              'https://cdn.discordapp.com/attachments/900392963639750657/1034679987963441173/unknown.png'),
     ]),
   ];
 
@@ -304,7 +478,7 @@ class _ListItemState extends State<ListItem> {
                           SizedBox(
                             width: 10,
                           ),
-                          MajorButton(
+                          MenuButton(
                               text: 'TẤT CẢ',
                               press: () {
                                 if (selectedMajorIndex != -1 ||
@@ -320,6 +494,58 @@ class _ListItemState extends State<ListItem> {
                               },
                               txtColor: alltxtColor,
                               backgroundcolor: allbgColor),
+                          ...listMenu.map((e) {
+                            if (listMenu.indexOf(e) == selectedMenuIndex) {
+                              return Row(
+                                children: [
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  MenuButton(
+                                    text: e.name,
+                                    press: () {},
+                                    txtColor: textLightColor,
+                                    backgroundcolor: sideBarColor,
+                                  ),
+                                ],
+                              );
+                            } else {
+                              return Row(
+                                children: [
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  MenuButton(
+                                    text: e.name,
+                                    press: () {
+                                      setState(() {
+                                        selectedMenuIndex = listMenu.indexOf(e);
+                                        updateList();
+                                        allbgColor = textLightColor;
+                                        alltxtColor = sideBarColor;
+                                      });
+                                    },
+                                    backgroundcolor: textLightColor,
+                                    txtColor: sideBarColor,
+                                  ),
+                                ],
+                              );
+                            }
+                          }).toList(),
+                        ]),
+                  ),
+                ),
+                SizedBox(
+                  height: size.height * 0.01,
+                ),
+                SizedBox(
+                  height: size.height * 0.07,
+                  width: size.width - defaultPadding * 6,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
                           ...listMajor.map((e) {
                             if (listMajor.indexOf(e) == selectedMajorIndex) {
                               return Row(
@@ -347,58 +573,6 @@ class _ListItemState extends State<ListItem> {
                                       setState(() {
                                         selectedMajorIndex =
                                             listMajor.indexOf(e);
-                                        updateList();
-                                        allbgColor = textLightColor;
-                                        alltxtColor = sideBarColor;
-                                      });
-                                    },
-                                    backgroundcolor: textLightColor,
-                                    txtColor: sideBarColor,
-                                  ),
-                                ],
-                              );
-                            }
-                          }).toList(),
-                        ]),
-                  ),
-                ),
-                SizedBox(
-                  height: size.height * 0.01,
-                ),
-                SizedBox(
-                  height: size.height * 0.07,
-                  width: size.width - defaultPadding * 6,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          ...listMenu.map((e) {
-                            if (listMenu.indexOf(e) == selectedMenuIndex) {
-                              return Row(
-                                children: [
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  MenuButton(
-                                    text: e.name,
-                                    press: () {},
-                                    txtColor: textLightColor,
-                                    backgroundcolor: sideBarColor,
-                                  ),
-                                ],
-                              );
-                            } else {
-                              return Row(
-                                children: [
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  MenuButton(
-                                    text: e.name,
-                                    press: () {
-                                      setState(() {
-                                        selectedMenuIndex = listMenu.indexOf(e);
                                         updateList();
                                         allbgColor = textLightColor;
                                         alltxtColor = sideBarColor;
