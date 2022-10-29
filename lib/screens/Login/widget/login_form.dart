@@ -66,7 +66,8 @@ class LoginForm extends StatelessWidget {
               ),
               onPressed: () async {
                 if (await loginToSystem(user, password)) {
-                  Navigator.of(context).pushNamed('/order', arguments: socket);
+                  Navigator.of(context)
+                      .pushReplacementNamed('/order', arguments: socket);
                 }
               },
               child: Text(

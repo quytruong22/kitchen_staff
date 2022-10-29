@@ -1,11 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:chef_application/config/routes.dart';
 import 'package:chef_application/repos/models/item_obj.dart';
 import 'package:chef_application/repos/models/major_group_obj.dart';
 import 'package:chef_application/repos/models/menu_obj.dart';
-import 'package:chef_application/screens/List_of_item/view_item_screen.dart';
 import 'package:http/http.dart';
 import 'package:localstorage/localstorage.dart';
 
@@ -50,11 +48,11 @@ class ItemRepository {
     }
   }
 
-  // get Item
-  Future<List<ItemDTO>> getItem() async {
+  // get Item instock
+  Future<List<ItemDTO>> getItem(int id) async {
     headers = storage.getItem('headers');
     Response res = await get(
-        Uri.parse(uriConnect + '/kitchen/menu/:id/instock/'),
+        Uri.parse(uriConnect + '/kitchen/menu/' + id.toString() + '/instock/'),
         headers: headers);
     if (res.statusCode == 200) {
       print('get item success');
@@ -68,11 +66,12 @@ class ItemRepository {
   }
 
   // get out of stock item
-  Future<List<ItemDTO>> getOutOfItem() async {
+  Future<List<ItemDTO>> getOutOfItem(int id) async {
     headers = storage.getItem('headers');
     Response res = await get(
-        Uri.parse(uriConnect + '/kitchen/menu/:id/outofstock/'),
-        headers: headers);
+      Uri.parse(uriConnect + '/kitchen/menu/' + id.toString() + '/outofstock/'),
+      headers: headers,
+    );
     if (res.statusCode == 200) {
       print('get out of stock item success');
       List<dynamic> body = jsonDecode(res.body);
@@ -83,6 +82,36 @@ class ItemRepository {
       return [];
     }
   }
+
   // out of stock item
+  Future<bool> setOutOfStock(var body) async {
+    headers = storage.getItem('headers');
+    Response res = await post(
+        Uri.parse(uriConnect + '/kitchen/add/outofstock/'),
+        headers: headers,
+        body: body);
+    if (res.statusCode == 200) {
+      print('set out of stock item success');
+      return true;
+    } else {
+      print('set out of stock item fail ' + res.body);
+      return false;
+    }
+  }
+
   // restock item
+  Future<bool> setInstock(var body) async {
+    headers = storage.getItem('headers');
+    Response res = await delete(
+        Uri.parse(uriConnect + '/kitchen/remove/outofstock/'),
+        headers: headers,
+        body: body);
+    if (res.statusCode == 200) {
+      print('restock item success');
+      return true;
+    } else {
+      print('restock item fail ' + res.body);
+      return false;
+    }
+  }
 }

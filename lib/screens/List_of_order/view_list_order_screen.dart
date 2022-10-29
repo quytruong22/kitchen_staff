@@ -132,6 +132,36 @@ class _ListOrderScreenState extends State<ListOrderScreen> {
                     },
                     {
                         "name": "add tea 1"
+                    },
+                    {
+                        "name": "add ice 1"
+                    },
+                    {
+                        "name": "add tea 1"
+                    },
+                    {
+                        "name": "add ice 1"
+                    },
+                    {
+                        "name": "add tea 1"
+                    },
+                    {
+                        "name": "add ice 1"
+                    },
+                    {
+                        "name": "add tea 1"
+                    },
+                    {
+                        "name": "add ice 1"
+                    },
+                    {
+                        "name": "add tea 1"
+                    },
+                    {
+                        "name": "add ice 1"
+                    },
+                    {
+                        "name": "add tea 1"
                     }
                 ]
             }
@@ -161,14 +191,7 @@ class _ListOrderScreenState extends State<ListOrderScreen> {
                 "quantity": 3,
                 "note": "Add more nuts",
                 "isreminded": false,
-                "specialrequest": [
-                    {
-                        "name": "add ice 1"
-                    },
-                    {
-                        "name": "add tea 1"
-                    }
-                ]
+                "specialrequest": []
             }
         ]
     }

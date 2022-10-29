@@ -17,6 +17,7 @@ class MajorButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
+      padding: EdgeInsets.zero,
       width: size.height * 0.12,
       height: size.height * 0.07,
       child: ElevatedButton(

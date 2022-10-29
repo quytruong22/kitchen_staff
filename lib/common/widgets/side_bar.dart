@@ -1,3 +1,4 @@
+import 'package:chef_application/repos/service/login_service.dart';
 import 'package:flutter/material.dart';
 import '../../config/theme.dart';
 
@@ -10,6 +11,8 @@ class SideBar extends StatefulWidget {
 }
 
 class _SideBarState extends State<SideBar> {
+  LoginService service = LoginService();
+
   @override
   Widget build(BuildContext context) {
     Color order = deactiveColor;
@@ -87,8 +90,10 @@ class _SideBarState extends State<SideBar> {
                   ],
                 ),
                 TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop('/login');
+                  onPressed: () async {
+                    if (await service.logout()) {
+                      Navigator.of(context).pushReplacementNamed('/login');
+                    }
                   },
                   style: TextButton.styleFrom(
                     backgroundColor: sideBarColor,

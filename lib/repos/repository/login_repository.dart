@@ -6,6 +6,7 @@ import 'package:localstorage/localstorage.dart';
 
 class LoginRepository {
   String uriConnect = uri;
+  final LocalStorage storage = LocalStorage('cookie');
   //login
   Future<bool> login(String user, String password) async {
     bool result = false;
@@ -13,9 +14,11 @@ class LoginRepository {
     var body = json.encode(data);
     print(body);
     Response res = await post(Uri.parse(uriConnect + '/login/'),
-        headers: {"Content-Type": "text/json"}, body: body);
+        headers: {"Content-Type": "application/json"}, body: body);
     if (res.statusCode == 200) {
       result = true;
+      storage.setItem('user', user);
+      storage.setItem('password', password);
       _updateCookie(res);
       print("login thành công" + res.body);
     } else {
@@ -24,9 +27,29 @@ class LoginRepository {
     return result;
   }
 
+  // logout
+  Future<bool> logout() async {
+    bool result = false;
+    Map<String, String> head = storage.getItem("headers");
+    String user = storage.getItem("user");
+    String password = storage.getItem("password");
+    Map data = {"username": user, "password": password};
+    var body = json.encode(data);
+    print(body);
+    Response res = await post(Uri.parse(uriConnect + '/logout/'),
+        headers: head, body: body);
+    if (res.statusCode == 200) {
+      result = true;
+      storage.clear();
+      print("logout");
+    } else {
+      print(res.body);
+    }
+    return result;
+  }
+
   // cookie
-  final LocalStorage storage = LocalStorage('cookie');
-  Map<String, String> headers = {"content-type": "text/json"};
+  Map<String, String> headers = {"content-type": "application/json"};
   Map<String, String> cookies = {};
   void _updateCookie(Response response) {
     String? allSetCookie = response.headers['set-cookie'];
@@ -58,7 +81,7 @@ class LoginRepository {
         // ignore keys that aren't cookies
         if (key == 'path' || key == 'expires') return;
 
-        this.cookies[key] = value;
+        cookies[key] = value;
       }
     }
   }
@@ -72,5 +95,16 @@ class LoginRepository {
     }
 
     return cookie;
+  }
+
+  // check logged in
+  bool checkLoggedIn() {
+    Map<String, String> head = {};
+    head = storage.getItem("headers") ?? {};
+    print(head);
+    if (head.isNotEmpty) {
+      return true;
+    }
+    return false;
   }
 }

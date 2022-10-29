@@ -26,7 +26,7 @@ class CheckDetailDTO {
         checkdetailid: json['checkdetailid'] as int,
         itemname: json['itemname'] as String,
         quantity: json['quantity'] as int,
-        note: json['note'] as String,
+        note: json['note'] ?? "",
         isreminded: json['isreminded'] as bool,
         specialrequest: ListSpecialRequest.fromJson(json['specialrequest'])
             .specialRequests);

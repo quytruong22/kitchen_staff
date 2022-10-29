@@ -20,13 +20,41 @@ class _OrderItemViewState extends State<OrderItemView> {
     }
   }
 
+  List<Widget> checkDetailShow(BuildContext context) {
+    List<Widget> list = [];
+    list.add(Text(
+      widget.checkDetail.itemname,
+      style: const TextStyle(
+          color: textColor, fontSize: 14, fontWeight: FontWeight.bold),
+      textAlign: TextAlign.left,
+    ));
+    if (widget.checkDetail.specialrequest.isNotEmpty) {
+      list.add(Text.rich(TextSpan(
+          children: widget.checkDetail.specialrequest
+              .map((e) => TextSpan(
+                    text: e.name + ', ',
+                    style: const TextStyle(color: textColor, fontSize: 12),
+                  ))
+              .toList())));
+    }
+    if (widget.checkDetail.note != "") {
+      list.add(Text(
+        widget.checkDetail.note,
+        style: const TextStyle(color: textColor, fontSize: 12),
+        textAlign: TextAlign.left,
+      ));
+    }
+    return list;
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      width: size.width * 0.25,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
+          minimumSize: Size(size.width * 0.25, 56),
+          maximumSize: Size(size.width * 0.25, double.infinity),
           padding: EdgeInsets.zero,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(0),
@@ -62,29 +90,7 @@ class _OrderItemViewState extends State<OrderItemView> {
                 width: size.width * 0.18 - 2,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.checkDetail.itemname,
-                      style: const TextStyle(
-                          color: textColor,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.left,
-                    ),
-                    Text.rich(TextSpan(
-                        children: widget.checkDetail.specialrequest
-                            .map((e) => TextSpan(
-                                  text: e.name + ', ',
-                                  style: const TextStyle(
-                                      color: textColor, fontSize: 12),
-                                ))
-                            .toList())),
-                    Text(
-                      widget.checkDetail.note,
-                      style: const TextStyle(color: textColor, fontSize: 12),
-                      textAlign: TextAlign.left,
-                    ),
-                  ],
+                  children: checkDetailShow(context),
                 ),
               )
             ]),

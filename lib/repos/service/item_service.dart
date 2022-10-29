@@ -16,12 +16,22 @@ class ItemService {
   }
 
   // get Item
-  Future<List<ItemDTO>> getItem() async {
-    return respo.getItem();
+  Future<List<ItemDTO>> getItem(int id) async {
+    return respo.getItem(id);
   }
 
   // get out of stock item
-  Future<List<ItemDTO>> getOutOfItem() async {
-    return respo.getOutOfItem();
+  Future<List<ItemDTO>> getOutOfItem(int id) async {
+    return respo.getOutOfItem(id);
+  }
+
+  // set out of stock item
+  Future<bool> setOutOfStock(var body) async {
+    return respo.setOutOfStock(body);
+  }
+
+  // restock item
+  Future<bool> setInstock(var body) async {
+    return respo.setInstock(body);
   }
 }

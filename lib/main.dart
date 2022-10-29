@@ -1,3 +1,4 @@
+import 'package:chef_application/repos/service/login_service.dart';
 import 'package:flutter/material.dart';
 import 'config/routes.dart';
 import 'config/theme.dart';
@@ -7,6 +8,13 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    LoginService service = LoginService();
+    String route;
+    if (service.checkLoggedIn()) {
+      route = '/order';
+    } else {
+      route = '/login';
+    }
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -33,7 +41,7 @@ class MyApp extends StatelessWidget {
                 borderSide: BorderSide.none,
               ),
             )),
-        initialRoute: '/login',
+        initialRoute: route,
         routes: NowRoutes.pageroutes);
   }
 }

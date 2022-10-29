@@ -19,13 +19,13 @@ class ItemDTO {
     return ItemDTO(
         id: json['itemid'] as int,
         imageLink: json['image'] as String,
-        majorGroupid: json['majorGroupId'] as int,
+        majorGroupid: json['majorgroupid'] as int,
         name: json['name'] as String);
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['itemid'] = id;
+    data['id'] = id;
     return data;
   }
 }
@@ -38,5 +38,11 @@ class ListItem {
   factory ListItem.fromJson(List<dynamic> parseJson) {
     List<ItemDTO> list = parseJson.map((e) => ItemDTO.fromjson(e)).toList();
     return ListItem(list: list);
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['itemlist'] = list;
+    return data;
   }
 }
