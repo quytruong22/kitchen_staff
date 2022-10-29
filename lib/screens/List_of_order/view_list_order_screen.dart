@@ -3,40 +3,26 @@ import 'dart:convert';
 import 'package:chef_application/common/widgets/action_button.dart';
 import 'package:chef_application/common/widgets/background.dart';
 import 'package:chef_application/common/widgets/side_bar.dart';
-import 'package:chef_application/repos/models/cooking_item_obj.dart';
-import 'package:chef_application/repos/models/order_obj.dart';
+import 'package:chef_application/repos/models/check_obj.dart';
+import 'package:chef_application/repos/service/check_service.dart';
 import 'package:chef_application/screens/List_of_order/widget/order.dart';
 import 'package:flutter/material.dart';
 
 import 'package:chef_application/config/theme.dart';
 import 'package:flutter_masonry_view/flutter_masonry_view.dart';
 
-class ListOrder extends StatefulWidget {
+class ListOrderScreen extends StatefulWidget {
   @override
-  State<ListOrder> createState() => _ListOrderState();
+  State<ListOrderScreen> createState() => _ListOrderScreenState();
 }
 
-class _ListOrderState extends State<ListOrder> {
+class _ListOrderScreenState extends State<ListOrderScreen> {
+  CheckService service = CheckService();
   List<Widget> listCheck(BuildContext context, List<CheckDTO> list) {
     return list.map((e) => OrderView(check: e)).toList();
   }
 
   List<CheckDTO> list = [];
-
-  void sendCheckDetail(int action) {
-    List<CheckDetailDTO> selectlist = [];
-    for (var e in list) {
-      for (var a in e.checkdetail) {
-        if (a.isSelected) {
-          selectlist.add(a);
-        }
-      }
-    }
-    if (selectlist.isNotEmpty) {
-      String jsonList = jsonEncode(selectlist);
-      print(jsonList);
-    }
-  }
 
   @override
   void initState() {
@@ -82,14 +68,14 @@ class _ListOrderState extends State<ListOrder> {
                       ActionButton(
                           text: "HOÀN THÀNH",
                           press: () {
-                            sendCheckDetail(1);
+                            service.readyCheckDetail(list);
                           },
                           icon: Icons.fastfood,
                           color: warningColor),
                       ActionButton(
                           text: "TRẢ LẠI",
                           press: () {
-                            sendCheckDetail(2);
+                            service.recallCheckDetail(list);
                           },
                           icon: Icons.no_food,
                           color: voidColor),
@@ -108,6 +94,7 @@ class _ListOrderState extends State<ListOrder> {
         "checkid": 5,
         "checkno": "ARdKoYfK",
         "runningsince": null,
+        "locationid": 2,
         "checkdetail": [
             {
                 "checkdetailid": 24,
@@ -154,6 +141,7 @@ class _ListOrderState extends State<ListOrder> {
         "checkid": 6,
         "checkno": "om41ymDP",
         "runningsince": null,
+        "locationid": 1,
         "checkdetail": [
             {
                 "checkdetailid": 28,
@@ -169,166 +157,6 @@ class _ListOrderState extends State<ListOrder> {
             },
             {
                 "checkdetailid": 29,
-                "itemname": "item 2",
-                "quantity": 3,
-                "note": "Add more nuts",
-                "isreminded": false,
-                "specialrequest": [
-                    {
-                        "name": "add ice 1"
-                    },
-                    {
-                        "name": "add tea 1"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "checkid": 7,
-        "checkno": "ARdKoYfK",
-        "runningsince": null,
-        "checkdetail": [
-            {
-                "checkdetailid": 1,
-                "itemname": "item 2",
-                "quantity": 2,
-                "note": "Add more nuts",
-                "isreminded": true,
-                "specialrequest": [
-                    {
-                        "name": "add beef 1"
-                    }
-                ]
-            },
-            {
-                "checkdetailid": 2,
-                "itemname": "item 2",
-                "quantity": 2,
-                "note": "Add more nuts",
-                "isreminded": false,
-                "specialrequest": [
-                    {
-                        "name": "add beef 1"
-                    }
-                ]
-            },
-            {
-                "checkdetailid": 3,
-                "itemname": "item 2",
-                "quantity": 3,
-                "note": "Add more nuts",
-                "isreminded": false,
-                "specialrequest": [
-                    {
-                        "name": "add ice 1"
-                    },
-                    {
-                        "name": "add tea 1"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "checkid": 8,
-        "checkno": "om41ymDP",
-        "runningsince": null,
-        "checkdetail": [
-            {
-                "checkdetailid": 4,
-                "itemname": "item 2",
-                "quantity": 2,
-                "note": "Add more nuts",
-                "isreminded": false,
-                "specialrequest": [
-                    {
-                        "name": "add beef 1"
-                    }
-                ]
-            },
-            {
-                "checkdetailid": 5,
-                "itemname": "item 2",
-                "quantity": 3,
-                "note": "Add more nuts",
-                "isreminded": false,
-                "specialrequest": [
-                    {
-                        "name": "add ice 1"
-                    },
-                    {
-                        "name": "add tea 1"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "checkid": 9,
-        "checkno": "ARdKoYfK",
-        "runningsince": null,
-        "checkdetail": [
-            {
-                "checkdetailid": 6,
-                "itemname": "item 2",
-                "quantity": 2,
-                "note": "Add more nuts",
-                "isreminded": true,
-                "specialrequest": [
-                    {
-                        "name": "add beef 1"
-                    }
-                ]
-            },
-            {
-                "checkdetailid": 7,
-                "itemname": "item 2",
-                "quantity": 2,
-                "note": "Add more nuts",
-                "isreminded": false,
-                "specialrequest": [
-                    {
-                        "name": "add beef 1"
-                    }
-                ]
-            },
-            {
-                "checkdetailid": 8,
-                "itemname": "item 2",
-                "quantity": 3,
-                "note": "Add more nuts",
-                "isreminded": false,
-                "specialrequest": [
-                    {
-                        "name": "add ice 1"
-                    },
-                    {
-                        "name": "add tea 1"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "checkid": 10,
-        "checkno": "om41ymDP",
-        "runningsince": null,
-        "checkdetail": [
-            {
-                "checkdetailid": 9,
-                "itemname": "item 2",
-                "quantity": 2,
-                "note": "Add more nuts",
-                "isreminded": false,
-                "specialrequest": [
-                    {
-                        "name": "add beef 1"
-                    }
-                ]
-            },
-            {
-                "checkdetailid": 10,
                 "itemname": "item 2",
                 "quantity": 3,
                 "note": "Add more nuts",

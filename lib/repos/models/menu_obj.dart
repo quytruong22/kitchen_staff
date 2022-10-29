@@ -9,3 +9,13 @@ class Menu {
     return Menu(name: json['name'], listItem: json['dada']);
   }
 }
+
+class ListMenu {
+  final List<Menu> list;
+  ListMenu({required this.list});
+
+  factory ListMenu.fromJson(List<dynamic> parseJson) {
+    List<Menu> list = parseJson.map((e) => Menu.fromJson(e)).toList();
+    return ListMenu(list: list);
+  }
+}

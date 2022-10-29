@@ -1,5 +1,5 @@
-import 'package:chef_application/repos/service/service.dart';
-import 'package:chef_application/repos/service/socket.dart';
+import 'package:chef_application/repos/service/login_service.dart';
+import 'package:chef_application/repos/repository/socket.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -8,9 +8,9 @@ import '../../../config/theme.dart';
 class LoginForm extends StatelessWidget {
   Socket socket;
   LoginForm({Key? key, required this.socket}) : super(key: key);
-  HttpService service = HttpService();
 
   Future<bool> loginToSystem(String user, String password) async {
+    LoginService service = LoginService();
     bool result = await service.login(user, password);
     return result;
   }
@@ -65,12 +65,9 @@ class LoginForm extends StatelessWidget {
                 primary: activeColor,
               ),
               onPressed: () async {
-                /*if (await loginToSystem(user, password)) {
-                  Navigator.of(context).pushNamed('/order');
-                } else {
-                  print("login failed");
-                }*/
-                Navigator.of(context).pushNamed('/order', arguments: socket);
+                if (await loginToSystem(user, password)) {
+                  Navigator.of(context).pushNamed('/order', arguments: socket);
+                }
               },
               child: Text(
                 "Đăng nhập".toUpperCase(),

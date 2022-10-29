@@ -1,5 +1,5 @@
 import 'package:chef_application/config/theme.dart';
-import 'package:chef_application/repos/models/order_obj.dart';
+import 'package:chef_application/repos/models/check_obj.dart';
 import 'package:chef_application/screens/List_of_order/widget/item_in_order.dart';
 import 'package:flutter/material.dart';
 

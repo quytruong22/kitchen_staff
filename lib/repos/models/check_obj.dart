@@ -1,20 +1,22 @@
-import 'package:chef_application/repos/models/cooking_item_obj.dart';
+import 'package:chef_application/repos/models/checkdetail_obj.dart';
 
 class CheckDTO {
   final int checkid;
   final String checkno;
   final String runningsince = '12:00';
   final List<CheckDetailDTO> checkdetail;
-
+  final int locationid;
   CheckDTO(
       {required this.checkid,
       required this.checkno,
-      required this.checkdetail});
+      required this.checkdetail,
+      required this.locationid});
 
   factory CheckDTO.fromJson(Map<String, dynamic> json) {
     return CheckDTO(
         checkid: json['checkid'] as int,
         checkno: json['checkno'] as String,
+        locationid: json['locationid'] as int,
         checkdetail:
             ListCheckDetail.fromJson(json['checkdetail']).checkDetails);
   }

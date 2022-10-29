@@ -33,8 +33,7 @@ class CheckDetailDTO {
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['checkdetailid'] = checkdetailid;
-    data['quantity'] = quantity;
+    data['detailid'] = checkdetailid;
     return data;
   }
 }

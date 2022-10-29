@@ -6,6 +6,7 @@ import 'package:chef_application/common/widgets/side_bar.dart';
 import 'package:chef_application/repos/models/item_obj.dart';
 import 'package:chef_application/repos/models/major_group_obj.dart';
 import 'package:chef_application/repos/models/menu_obj.dart';
+import 'package:chef_application/repos/service/item_service.dart';
 import 'package:chef_application/screens/List_of_item/widget/change_list_button.dart';
 import 'package:chef_application/screens/List_of_item/widget/item_view.dart';
 import 'package:chef_application/screens/List_of_item/widget/major_button.dart';
@@ -14,12 +15,12 @@ import 'package:flutter/material.dart';
 
 import 'package:chef_application/config/theme.dart';
 
-class ListItem extends StatefulWidget {
+class ListItemScreen extends StatefulWidget {
   @override
-  State<ListItem> createState() => _ListItemState();
+  State<ListItemScreen> createState() => _ListItemScreenState();
 }
 
-class _ListItemState extends State<ListItem> {
+class _ListItemScreenState extends State<ListItemScreen> {
   bool changelist = false;
   String title = 'Danh sách món ăn hiện có';
   String searchName = '';
@@ -28,6 +29,18 @@ class _ListItemState extends State<ListItem> {
   Color allbgColor = sideBarColor;
   Color alltxtColor = textLightColor;
   List<ItemDTO> listShow = [];
+  ItemService service = ItemService();
+
+  void getData() async {
+    List<MajorGroup> major = await service.getMajorGroup();
+    if (major.isNotEmpty) {
+      listMajor.addAll(major);
+    }
+    List<Menu> menu = await service.getMenu();
+    if (menu.isNotEmpty) {
+      listMenu.addAll(menu);
+    }
+  }
 
   List<MajorGroup> listMajor = [
     MajorGroup(name: 'MÓN KHAI VỊ', id: 0),
@@ -318,6 +331,7 @@ class _ListItemState extends State<ListItem> {
 
   @override
   void initState() {
+    getData();
     updateList();
     super.initState();
   }
@@ -405,10 +419,6 @@ class _ListItemState extends State<ListItem> {
         ),
       );
     }
-  }
-
-  List<CardItem> listItemWidget(BuildContext context, List<ItemDTO> list) {
-    return list.map((e) => CardItem(item: e)).toList();
   }
 
   @override
@@ -598,7 +608,9 @@ class _ListItemState extends State<ListItem> {
                   child: GridView.count(
                     crossAxisSpacing: 10,
                     crossAxisCount: 5,
-                    children: [...listItemWidget(context, listShow)],
+                    children: [
+                      ...listShow.map((e) => CardItem(item: e)).toList()
+                    ],
                   ),
                 )),
                 ActionBar(context)
