@@ -1,16 +1,20 @@
-# chef_application
+# Kitchen Staff application
 
-A new Flutter project.
+This is my FPT university capstone. A part of POS system used for hotel restaurant.
 
-## Getting Started
+Other parts of capstone:
 
-This project is a starting point for a Flutter application.
+[POS Server](https://github.com/LocWork/pos-server)
 
-A few resources to get you started if this is your first Flutter project:
+[POS Cashier and Waiter](https://github.com/BaoCQSE62960/pos_res_android)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Technology used
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Flutter: [online documentation](https://docs.flutter.dev/).
+
+ Package:
+ 
+ - [flutter masonry view](https://pub.dev/packages/flutter_masonry_view) for viewing check.
+ - [http](https://pub.dev/packages/http) for API.
+ - [LocalStorage](https://pub.dev/packages/localstorage) for storing data.
+ - [Socket_io_Client](https://pub.dev/packages/socket_io_client) for socket client.
