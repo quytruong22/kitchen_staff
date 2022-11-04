@@ -1,4 +1,3 @@
-import 'package:chef_application/repos/repository/socket.dart';
 import 'package:flutter/material.dart';
 import 'package:chef_application/config/theme.dart';
 
@@ -15,15 +14,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  Socket socket = Socket();
-
-  @override
-  void initState() {
-    socket.declareSocket();
-    socket.connectServer();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Background(
@@ -52,10 +42,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: 300,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                    children: const [
                       SizedBox(
                         width: 390,
-                        child: LoginForm(socket: socket),
+                        child: LoginForm(),
                       ),
                     ],
                   ),

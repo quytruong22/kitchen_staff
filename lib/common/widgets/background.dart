@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:chef_application/config/theme.dart';
 
 class Background extends StatelessWidget {
   final Widget child;

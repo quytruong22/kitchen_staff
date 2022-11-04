@@ -4,7 +4,7 @@ import '../../config/theme.dart';
 
 class SideBar extends StatefulWidget {
   final int selectedIndex;
-  SideBar({required this.selectedIndex});
+  const SideBar({Key? key, required this.selectedIndex}) : super(key: key);
 
   @override
   State<SideBar> createState() => _SideBarState();
@@ -37,7 +37,9 @@ class _SideBarState extends State<SideBar> {
                   children: [
                     TextButton(
                       onPressed: () {
-                        Navigator.of(context).pushReplacementNamed('/order');
+                        if (widget.selectedIndex != 1) {
+                          Navigator.of(context).pushReplacementNamed('/order');
+                        }
                       },
                       style: TextButton.styleFrom(
                         backgroundColor: sideBarColor,
@@ -63,7 +65,9 @@ class _SideBarState extends State<SideBar> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.of(context).pushReplacementNamed('/item');
+                        if (widget.selectedIndex != 2) {
+                          Navigator.of(context).pushReplacementNamed('/item');
+                        }
                       },
                       style: TextButton.styleFrom(
                         backgroundColor: sideBarColor,

@@ -6,13 +6,18 @@ import 'package:chef_application/repos/models/link_location_checkdetail.dart';
 import 'package:chef_application/repos/models/link_location_checkdetailcheck.dart';
 import 'package:chef_application/repos/models/location_obj.dart';
 import 'package:http/http.dart';
+import 'package:localstorage/localstorage.dart';
 import 'dart:convert';
 
 class CheckRespository {
+  LocalStorage storage = LocalStorage('cookie');
   String uriConnect = uri;
+  Map<String, String> headers = {};
   // get checks
   Future<List<CheckDTO>> getChecks() async {
-    Response res = await get(Uri.parse(uriConnect + '/kitchen/'));
+    headers = storage.getItem('headers');
+    Response res =
+        await get(Uri.parse(uriConnect + '/kitchen/'), headers: headers);
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
       List<CheckDTO> list = ListCheck.fromJson(body).checks;
@@ -22,7 +27,8 @@ class CheckRespository {
   }
 
   // ready
-  void readyCheckdetails(List<CheckDTO> list) {
+  void readyCheckdetails(List<CheckDTO> list) async {
+    headers = storage.getItem('headers');
     List<LocationDTO> selectlocation = [];
     List<CheckdetailCheck> selectlist = [];
     for (var check in list) {
@@ -46,13 +52,22 @@ class CheckRespository {
         LocationCheckdetailCheck selected = LocationCheckdetailCheck(
             listLocation: selectlocation, listCheckdetailCheck: selectlist);
         String json = jsonEncode(selected);
-        print(json);
+        Response res = await put(
+            Uri.parse(uriConnect + '/kitchen/notify/ready/'),
+            headers: headers,
+            body: json);
+        if (res.statusCode == 200) {
+          print(json);
+        } else {
+          print('ready error');
+        }
       }
     }
   }
 
   // recall
-  void recallCheckdetails(List<CheckDTO> list) {
+  void recallCheckdetails(List<CheckDTO> list) async {
+    headers = storage.getItem('headers');
     List<LocationDTO> selectlocation = [];
     List<CheckDetailDTO> selectlist = [];
     for (var check in list) {
@@ -76,7 +91,15 @@ class CheckRespository {
       LocationCheckdetail selected = LocationCheckdetail(
           listLocation: selectlocation, listCheckdetail: selectlist);
       String json = jsonEncode(selected);
-      print(json);
+      Response res = await put(
+          Uri.parse(uriConnect + '/kitchen/notify/recall/'),
+          headers: headers,
+          body: json);
+      if (res.statusCode == 200) {
+        print(json);
+      } else {
+        print('recall error');
+      }
     }
   }
 }

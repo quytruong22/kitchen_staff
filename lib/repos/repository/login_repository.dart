@@ -8,21 +8,20 @@ class LoginRepository {
   String uriConnect = uri;
   final LocalStorage storage = LocalStorage('cookie');
   //login
-  Future<bool> login(String user, String password) async {
-    bool result = false;
+  Future<String> login(String user, String password) async {
+    String result = "";
     Map data = {"username": user, "password": password};
     var body = json.encode(data);
     print(body);
     Response res = await post(Uri.parse(uriConnect + '/login/'),
         headers: {"Content-Type": "application/json"}, body: body);
     if (res.statusCode == 200) {
-      result = true;
+      result = jsonDecode(res.body)['role'] as String;
       storage.setItem('user', user);
       storage.setItem('password', password);
       _updateCookie(res);
-      print("login thành công" + res.body);
     } else {
-      print(res.body);
+      result = jsonDecode(res.body)['msg'] as String;
     }
     return result;
   }

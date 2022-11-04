@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class CardItem extends StatefulWidget {
   final ItemDTO item;
 
-  CardItem({required this.item});
+  const CardItem({Key? key, required this.item}) : super(key: key);
 
   @override
   State<CardItem> createState() => _CardItemState();
@@ -23,8 +23,7 @@ class _CardItemState extends State<CardItem> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Container(
-        child: GestureDetector(
+    return GestureDetector(
       onTap: (() {
         setState(() {
           if (widget.item.isSelected) {
@@ -46,7 +45,7 @@ class _CardItemState extends State<CardItem> {
                 child: Container(
                     width: size.width,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(6.0),
                             topRight: Radius.circular(6.0)),
                         image: DecorationImage(
@@ -58,7 +57,7 @@ class _CardItemState extends State<CardItem> {
                 child: Container(
                   width: size.width,
                   color: backgroundColor(context),
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,6 +69,6 @@ class _CardItemState extends State<CardItem> {
           ],
         ),
       ),
-    ));
+    );
   }
 }

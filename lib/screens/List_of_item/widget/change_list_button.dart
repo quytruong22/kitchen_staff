@@ -1,4 +1,3 @@
-import 'package:chef_application/config/theme.dart';
 import 'package:flutter/material.dart';
 
 class ChangeListButton extends StatelessWidget {
@@ -7,16 +6,18 @@ class ChangeListButton extends StatelessWidget {
   final IconData icon;
   final Color color;
 
-  ChangeListButton(
-      {required this.text,
+  const ChangeListButton(
+      {Key? key,
+      required this.text,
       required this.press,
       required this.icon,
-      required this.color});
+      required this.color})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Container(
+    return SizedBox(
       width: size.height * 0.1,
       height: size.height * 0.1,
       child: ElevatedButton(
@@ -31,14 +32,12 @@ class ChangeListButton extends StatelessWidget {
             const SizedBox(
               height: 5,
             ),
-            Container(
-              child: Text(
-                text,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 10,
-                ),
+            Text(
+              text,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 10,
               ),
             ),
           ],

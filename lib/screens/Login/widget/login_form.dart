@@ -1,17 +1,17 @@
 import 'package:chef_application/repos/service/login_service.dart';
-import 'package:chef_application/repos/repository/socket.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../config/theme.dart';
 
 class LoginForm extends StatelessWidget {
-  Socket socket;
-  LoginForm({Key? key, required this.socket}) : super(key: key);
+  const LoginForm({Key? key}) : super(key: key);
 
-  Future<bool> loginToSystem(String user, String password) async {
+  static const List<String> roles = ['WAITER', 'CASHIER'];
+
+  Future<String> loginToSystem(String user, String password) async {
     LoginService service = LoginService();
-    bool result = await service.login(user, password);
+    String result = await service.login(user, password);
     return result;
   }
 
@@ -62,12 +62,16 @@ class LoginForm extends StatelessWidget {
             tag: "login_btn",
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: activeColor,
+                backgroundColor: activeColor,
               ),
               onPressed: () async {
-                if (await loginToSystem(user, password)) {
-                  Navigator.of(context)
-                      .pushReplacementNamed('/order', arguments: socket);
+                String result = await loginToSystem(user, password);
+                if (result == "KITCHEN_STAFF") {
+                  Navigator.of(context).pushReplacementNamed('/order');
+                } else if (roles.contains(result)) {
+                  print('Vai trò của tài khoản không phù hợp.');
+                } else {
+                  print(result);
                 }
               },
               child: Text(
@@ -80,10 +84,9 @@ class LoginForm extends StatelessWidget {
             tag: "close_btn",
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: voidColor,
+                backgroundColor: voidColor,
               ),
               onPressed: () {
-                socket.disconnectServer();
                 SystemNavigator.pop();
               },
               child: Text(

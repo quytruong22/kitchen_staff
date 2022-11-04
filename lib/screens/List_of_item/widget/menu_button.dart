@@ -7,16 +7,18 @@ class MenuButton extends StatelessWidget {
   final Color backgroundcolor;
   final Color txtColor;
 
-  MenuButton(
-      {required this.text,
+  const MenuButton(
+      {Key? key,
+      required this.text,
       required this.press,
       required this.backgroundcolor,
-      required this.txtColor});
+      required this.txtColor})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Container(
+    return SizedBox(
       width: size.height * 0.1,
       height: size.height * 0.1,
       child: ElevatedButton(

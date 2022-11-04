@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'config/routes.dart';
 import 'config/theme.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     LoginService service = LoginService();
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
             elevatedButtonTheme: ElevatedButtonThemeData(
               style: ElevatedButton.styleFrom(
                 elevation: 0,
-                primary: primaryColor,
+                backgroundColor: primaryColor,
                 shape: const StadiumBorder(),
                 maximumSize: const Size(double.infinity, 56),
                 minimumSize: const Size(double.infinity, 56),

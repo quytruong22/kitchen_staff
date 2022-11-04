@@ -1,18 +1,48 @@
+import 'dart:async';
+
 import 'package:chef_application/config/theme.dart';
 import 'package:chef_application/repos/models/check_obj.dart';
 import 'package:chef_application/screens/List_of_order/widget/item_in_order.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class OrderView extends StatefulWidget {
   final CheckDTO check;
 
-  OrderView({required this.check});
+  const OrderView({Key? key, required this.check}) : super(key: key);
 
   @override
   State<OrderView> createState() => _OrderViewState();
 }
 
 class _OrderViewState extends State<OrderView> {
+  late Timer timer;
+  String countTime = "";
+
+  @override
+  void initState() {
+    super.initState();
+    // call timer
+    DateTime checkTime = widget.check.runningsince;
+    print(checkTime);
+    timer = Timer.periodic(const Duration(seconds: 1), ((timer) {
+      setState(() {
+        DateTime countUp = DateTime.now().subtract(Duration(
+            hours: checkTime.hour,
+            minutes: checkTime.minute,
+            seconds: checkTime.second));
+        countTime = DateFormat('HH:mm:ss').format(countUp);
+      });
+    }));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    // break timer
+    timer.cancel();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -74,7 +104,7 @@ class _OrderViewState extends State<OrderView> {
                             color: textLightColor,
                             fontSize: 15,
                             fontWeight: FontWeight.bold)),
-                    Text(widget.check.runningsince,
+                    Text(countTime,
                         style: const TextStyle(
                             color: textLightColor,
                             fontSize: 15,

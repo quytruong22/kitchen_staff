@@ -7,11 +7,13 @@ class MajorButton extends StatelessWidget {
   final Color backgroundcolor;
   final Color txtColor;
 
-  MajorButton(
-      {required this.text,
+  const MajorButton(
+      {Key? key,
+      required this.text,
       required this.press,
       required this.backgroundcolor,
-      required this.txtColor});
+      required this.txtColor})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,24 +1,24 @@
 import 'package:chef_application/config/routes.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:socket_io_client/socket_io_client.dart' as io;
 
 class Socket {
-  late IO.Socket socket;
+  late io.Socket socket;
   String uriConnect = uri;
   //
   Socket();
   // declare
   void declareSocket() {
     print("call func");
-    socket = IO.io(
+    socket = io.io(
         uriConnect,
-        IO.OptionBuilder()
+        io.OptionBuilder()
             .setTransports(['websocket'])
             .disableAutoConnect()
             .build());
     socket.onConnect((_) {
       print("connect");
     });
-    socket.emit('join-kds-location', '1');
+    socket.emit('join-kds-location', '0');
     socket.onDisconnect((_) => print('disconnect'));
     socket.onConnectError((data) => print('connect error' + data.toString()));
     socket.onConnecting((data) => print('connecting to server'));

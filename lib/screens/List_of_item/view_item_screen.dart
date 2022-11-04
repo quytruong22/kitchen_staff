@@ -16,6 +16,8 @@ import 'package:flutter/material.dart';
 import 'package:chef_application/config/theme.dart';
 
 class ListItemScreen extends StatefulWidget {
+  const ListItemScreen({Key? key}) : super(key: key);
+
   @override
   State<ListItemScreen> createState() => _ListItemScreenState();
 }
@@ -28,6 +30,8 @@ class _ListItemScreenState extends State<ListItemScreen> {
   int selectedMenuIndex = -1;
   Color allbgColor = sideBarColor;
   Color alltxtColor = textLightColor;
+  Color allMajorbgColor = sideBarColor;
+  Color allMajortxtColor = textLightColor;
   List<ItemDTO> listShow = [];
   List<MajorGroup> listMajor = [];
   List<Menu> listMenu = [];
@@ -205,7 +209,7 @@ class _ListItemScreenState extends State<ListItemScreen> {
             child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SideBar(selectedIndex: 2),
+            const SideBar(selectedIndex: 2),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -219,7 +223,6 @@ class _ListItemScreenState extends State<ListItemScreen> {
                         width: size.width * 0.25,
                         child: Text(
                           title,
-                          style: TextStyle(),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -265,16 +268,11 @@ class _ListItemScreenState extends State<ListItemScreen> {
                             child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  SizedBox(
-                                    width: 10,
-                                  ),
                                   MenuButton(
                                       text: 'TẤT CẢ',
                                       press: () {
-                                        if (selectedMajorIndex != -1 ||
-                                            selectedMenuIndex != -1) {
+                                        if (selectedMenuIndex != -1) {
                                           setState(() {
-                                            selectedMajorIndex = -1;
                                             selectedMenuIndex = -1;
                                             updateList();
                                             alltxtColor = textLightColor;
@@ -289,7 +287,7 @@ class _ListItemScreenState extends State<ListItemScreen> {
                                         selectedMenuIndex) {
                                       return Row(
                                         children: [
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 10,
                                           ),
                                           MenuButton(
@@ -303,7 +301,7 @@ class _ListItemScreenState extends State<ListItemScreen> {
                                     } else {
                                       return Row(
                                         children: [
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 10,
                                           ),
                                           MenuButton(
@@ -348,12 +346,26 @@ class _ListItemScreenState extends State<ListItemScreen> {
                             child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
+                                  MajorButton(
+                                      text: 'TẤT CẢ',
+                                      press: () {
+                                        if (selectedMajorIndex != -1) {
+                                          setState(() {
+                                            selectedMajorIndex = -1;
+                                            updateList();
+                                            allMajortxtColor = textLightColor;
+                                            allMajorbgColor = sideBarColor;
+                                          });
+                                        }
+                                      },
+                                      txtColor: allMajortxtColor,
+                                      backgroundcolor: allMajorbgColor),
                                   ...listMajor.map((e) {
                                     if (listMajor.indexOf(e) ==
                                         selectedMajorIndex) {
                                       return Row(
                                         children: [
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 10,
                                           ),
                                           MajorButton(
@@ -367,7 +379,7 @@ class _ListItemScreenState extends State<ListItemScreen> {
                                     } else {
                                       return Row(
                                         children: [
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 10,
                                           ),
                                           MajorButton(
@@ -377,8 +389,9 @@ class _ListItemScreenState extends State<ListItemScreen> {
                                                 selectedMajorIndex =
                                                     listMajor.indexOf(e);
                                                 updateList();
-                                                allbgColor = textLightColor;
-                                                alltxtColor = sideBarColor;
+                                                allMajorbgColor =
+                                                    textLightColor;
+                                                allMajortxtColor = sideBarColor;
                                               });
                                             },
                                             backgroundcolor: textLightColor,

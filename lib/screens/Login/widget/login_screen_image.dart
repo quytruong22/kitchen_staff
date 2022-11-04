@@ -9,13 +9,8 @@ class LoginScreenImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Column(
       children: [
-        // const Text(
-        //   "CHÀO MỪNG ĐẾN VỚI",
-        //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-        // ),
         const SizedBox(height: defaultPadding * 2),
         Container(
           width: 300,

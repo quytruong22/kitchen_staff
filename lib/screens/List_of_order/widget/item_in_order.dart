@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class OrderItemView extends StatefulWidget {
   final CheckDetailDTO checkDetail;
 
-  OrderItemView({required this.checkDetail});
+  const OrderItemView({Key? key, required this.checkDetail}) : super(key: key);
 
   @override
   State<OrderItemView> createState() => _OrderItemViewState();
@@ -50,51 +50,49 @@ class _OrderItemViewState extends State<OrderItemView> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Container(
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          minimumSize: Size(size.width * 0.25, 56),
-          maximumSize: Size(size.width * 0.25, double.infinity),
-          padding: EdgeInsets.zero,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(0),
-          ),
-          backgroundColor: backgroundColor(context),
-          elevation: 0,
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        minimumSize: Size(size.width * 0.25, 56),
+        maximumSize: Size(size.width * 0.25, double.infinity),
+        padding: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(0),
         ),
-        onPressed: (() {
-          setState(() {
-            if (widget.checkDetail.isSelected) {
-              widget.checkDetail.setIsSelected = false;
-            } else {
-              widget.checkDetail.setIsSelected = true;
-            }
-          });
-        }),
-        child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                width: size.width * 0.02,
-                child: Text(
-                  widget.checkDetail.quantity.toString(),
-                  style: const TextStyle(
-                      color: textColor,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              Container(
-                width: size.width * 0.18 - 2,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: checkDetailShow(context),
-                ),
-              )
-            ]),
+        backgroundColor: backgroundColor(context),
+        elevation: 0,
       ),
+      onPressed: (() {
+        setState(() {
+          if (widget.checkDetail.isSelected) {
+            widget.checkDetail.setIsSelected = false;
+          } else {
+            widget.checkDetail.setIsSelected = true;
+          }
+        });
+      }),
+      child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: size.width * 0.02,
+              child: Text(
+                widget.checkDetail.quantity.toString(),
+                style: const TextStyle(
+                    color: textColor,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            SizedBox(
+              width: size.width * 0.18 - 2,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: checkDetailShow(context),
+              ),
+            )
+          ]),
     );
   }
 }
