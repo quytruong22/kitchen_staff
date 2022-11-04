@@ -6,10 +6,11 @@ import 'package:chef_application/screens/List_of_order/widget/item_in_order.dart
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+// ignore: must_be_immutable
 class OrderView extends StatefulWidget {
-  final CheckDTO check;
+  CheckDTO check;
 
-  const OrderView({Key? key, required this.check}) : super(key: key);
+  OrderView({Key? key, required this.check}) : super(key: key);
 
   @override
   State<OrderView> createState() => _OrderViewState();
@@ -17,14 +18,16 @@ class OrderView extends StatefulWidget {
 
 class _OrderViewState extends State<OrderView> {
   late Timer timer;
+  late DateTime checkTime;
   String countTime = "";
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
+
     // call timer
-    DateTime checkTime = widget.check.runningsince;
-    print(checkTime);
+    checkTime = widget.check.runningsince;
     timer = Timer.periodic(const Duration(seconds: 1), ((timer) {
       setState(() {
         DateTime countUp = DateTime.now().subtract(Duration(
@@ -45,6 +48,7 @@ class _OrderViewState extends State<OrderView> {
 
   @override
   Widget build(BuildContext context) {
+    checkTime = widget.check.runningsince;
     Size size = MediaQuery.of(context).size;
     return Container(
         width: size.width * 0.2,

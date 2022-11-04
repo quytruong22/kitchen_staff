@@ -26,6 +26,14 @@ class _ListOrderScreenState extends State<ListOrderScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    socket.declareSocket();
+    socket.connectServer();
+  }
+
+  @override
   void dispose() {
     super.dispose();
     socket.disconnectServer();
@@ -34,8 +42,6 @@ class _ListOrderScreenState extends State<ListOrderScreen> {
 
   @override
   Widget build(BuildContext context) {
-    socket.declareSocket();
-    socket.connectServer();
     socket.socket.on('update-kds-kitchen', (data) {
       setState(() {});
     });

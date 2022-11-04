@@ -69,9 +69,30 @@ class LoginForm extends StatelessWidget {
                 if (result == "KITCHEN_STAFF") {
                   Navigator.of(context).pushReplacementNamed('/order');
                 } else if (roles.contains(result)) {
-                  print('Vai trò của tài khoản không phù hợp.');
+                  showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                            title: const Text('Đăng nhập không thành công'),
+                            content: const Text(
+                                'Vai trò của tài khoản không phù hợp.'),
+                            actions: [
+                              TextButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: const Text('OK'))
+                            ],
+                          ));
                 } else {
-                  print(result);
+                  showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                            title: const Text('Đăng nhập không thành công'),
+                            content: Text(result),
+                            actions: [
+                              TextButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: const Text('OK'))
+                            ],
+                          ));
                 }
               },
               child: Text(
