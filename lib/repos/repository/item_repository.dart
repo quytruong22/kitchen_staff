@@ -51,6 +51,7 @@ class ItemRepository {
   // get Item instock
   Future<List<ItemDTO>> getItem(int id) async {
     headers = storage.getItem('headers');
+    print(id);
     Response res = await get(
         Uri.parse(uriConnect + '/kitchen/menu/' + id.toString() + '/instock/'),
         headers: headers);

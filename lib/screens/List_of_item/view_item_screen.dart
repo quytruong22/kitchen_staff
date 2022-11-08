@@ -58,18 +58,19 @@ class _ListItemScreenState extends State<ListItemScreen> {
       }
     }
     // delete duplicate item
-    for (var itemtemp in temp) {
-      bool confirm = true;
-      for (var item in listItem) {
-        if (itemtemp.id == item.id) {
-          confirm = false;
-          break;
-        }
-      }
-      if (confirm) {
-        listItem.add(itemtemp);
-      }
-    }
+    // for (var itemtemp in temp) {
+    //   bool confirm = true;
+    //   for (var item in listItem) {
+    //     if (itemtemp.id == item.id) {
+    //       confirm = false;
+    //       break;
+    //     }
+    //   }
+    //   if (confirm) {
+    //     listItem.add(itemtemp);
+    //   }
+    // }
+    listItem = temp;
     // update list show
     updateList();
     return listShow;
@@ -92,6 +93,7 @@ class _ListItemScreenState extends State<ListItemScreen> {
       }
       listShow = list;
     }
+    print('major filter: ' + listShow.length.toString());
     // search
     if (searchName != '') {
       List<ItemDTO> listSearch = [];
@@ -104,6 +106,8 @@ class _ListItemScreenState extends State<ListItemScreen> {
       }
       listShow = listSearch;
     }
+    print('search: ' + listShow.length.toString());
+    print('length' + listShow.length.toString());
     // sort
   }
 
@@ -274,7 +278,7 @@ class _ListItemScreenState extends State<ListItemScreen> {
                                         if (selectedMenuIndex != -1) {
                                           setState(() {
                                             selectedMenuIndex = -1;
-                                            updateList();
+                                            updateListByMenu();
                                             alltxtColor = textLightColor;
                                             allbgColor = sideBarColor;
                                           });
@@ -311,7 +315,6 @@ class _ListItemScreenState extends State<ListItemScreen> {
                                                 selectedMenuIndex =
                                                     listMenu.indexOf(e);
                                                 updateListByMenu();
-                                                updateList();
                                                 allbgColor = textLightColor;
                                                 alltxtColor = sideBarColor;
                                               });
