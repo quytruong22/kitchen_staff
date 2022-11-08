@@ -7,6 +7,7 @@ class CheckDTO {
   final DateTime runningsince;
   final List<CheckDetailDTO> checkdetail;
   final int locationid;
+
   CheckDTO(
       {required this.checkid,
       required this.checkno,

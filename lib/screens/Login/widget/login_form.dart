@@ -1,3 +1,4 @@
+import 'package:chef_application/common/widgets/warning_popup.dart';
 import 'package:chef_application/repos/service/login_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -71,28 +72,12 @@ class LoginForm extends StatelessWidget {
                 } else if (roles.contains(result)) {
                   showDialog(
                       context: context,
-                      builder: (context) => AlertDialog(
-                            title: const Text('Đăng nhập không thành công'),
-                            content: const Text(
-                                'Vai trò của tài khoản không phù hợp.'),
-                            actions: [
-                              TextButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  child: const Text('OK'))
-                            ],
-                          ));
+                      builder: (context) => WarningPopUp(
+                          msg: 'Vai trò của tài khoản không phù hợp.'));
                 } else {
                   showDialog(
                       context: context,
-                      builder: (context) => AlertDialog(
-                            title: const Text('Đăng nhập không thành công'),
-                            content: Text(result),
-                            actions: [
-                              TextButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  child: const Text('OK'))
-                            ],
-                          ));
+                      builder: (context) => WarningPopUp(msg: result));
                 }
               },
               child: Text(

@@ -23,9 +23,7 @@ class _OrderViewState extends State<OrderView> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
     // call timer
     checkTime = widget.check.runningsince;
     timer = Timer.periodic(const Duration(seconds: 1), ((timer) {
