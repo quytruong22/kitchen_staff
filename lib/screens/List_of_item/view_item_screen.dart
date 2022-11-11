@@ -40,37 +40,23 @@ class _ListItemScreenState extends State<ListItemScreen> {
   ItemService service = ItemService();
 
   Future<List<ItemDTO>> updateListByMenu() async {
-    List<ItemDTO> temp = [];
     listItem = [];
     // get item
     if (!changelist) {
       if (selectedMenuIndex != -1) {
-        temp = await service.getItem(listMenu.elementAt(selectedMenuIndex).id);
+        listItem =
+            await service.getItem(listMenu.elementAt(selectedMenuIndex).id);
       } else {
-        temp = await service.getItem(0);
+        listItem = await service.getItem(0);
       }
     } else {
       if (selectedMenuIndex != -1) {
-        temp = await service
+        listItem = await service
             .getOutOfItem(listMenu.elementAt(selectedMenuIndex).id);
       } else {
-        temp = await service.getOutOfItem(0);
+        listItem = await service.getOutOfItem(0);
       }
     }
-    // delete duplicate item
-    // for (var itemtemp in temp) {
-    //   bool confirm = true;
-    //   for (var item in listItem) {
-    //     if (itemtemp.id == item.id) {
-    //       confirm = false;
-    //       break;
-    //     }
-    //   }
-    //   if (confirm) {
-    //     listItem.add(itemtemp);
-    //   }
-    // }
-    listItem = temp;
     // update list show
     updateList();
     return listShow;
@@ -93,7 +79,6 @@ class _ListItemScreenState extends State<ListItemScreen> {
       }
       listShow = list;
     }
-    print('major filter: ' + listShow.length.toString());
     // search
     if (searchName != '') {
       List<ItemDTO> listSearch = [];
@@ -106,8 +91,6 @@ class _ListItemScreenState extends State<ListItemScreen> {
       }
       listShow = listSearch;
     }
-    print('search: ' + listShow.length.toString());
-    print('length' + listShow.length.toString());
     // sort
   }
 
@@ -272,20 +255,20 @@ class _ListItemScreenState extends State<ListItemScreen> {
                             child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  MenuButton(
-                                      text: 'TẤT CẢ',
-                                      press: () {
-                                        if (selectedMenuIndex != -1) {
-                                          setState(() {
-                                            selectedMenuIndex = -1;
-                                            updateListByMenu();
-                                            alltxtColor = textLightColor;
-                                            allbgColor = sideBarColor;
-                                          });
-                                        }
-                                      },
-                                      txtColor: alltxtColor,
-                                      backgroundcolor: allbgColor),
+                                  // MenuButton(
+                                  //     text: 'TẤT CẢ',
+                                  //     press: () {
+                                  //       if (selectedMenuIndex != -1) {
+                                  //         setState(() {
+                                  //           selectedMenuIndex = -1;
+                                  //           updateListByMenu();
+                                  //           alltxtColor = textLightColor;
+                                  //           allbgColor = sideBarColor;
+                                  //         });
+                                  //       }
+                                  //     },
+                                  //     txtColor: alltxtColor,
+                                  //     backgroundcolor: allbgColor),
                                   ...listMenu.map((e) {
                                     if (listMenu.indexOf(e) ==
                                         selectedMenuIndex) {
@@ -349,20 +332,20 @@ class _ListItemScreenState extends State<ListItemScreen> {
                             child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  MajorButton(
-                                      text: 'TẤT CẢ',
-                                      press: () {
-                                        if (selectedMajorIndex != -1) {
-                                          setState(() {
-                                            selectedMajorIndex = -1;
-                                            updateList();
-                                            allMajortxtColor = textLightColor;
-                                            allMajorbgColor = sideBarColor;
-                                          });
-                                        }
-                                      },
-                                      txtColor: allMajortxtColor,
-                                      backgroundcolor: allMajorbgColor),
+                                  // MajorButton(
+                                  //     text: 'TẤT CẢ',
+                                  //     press: () {
+                                  //       if (selectedMajorIndex != -1) {
+                                  //         setState(() {
+                                  //           selectedMajorIndex = -1;
+                                  //           updateList();
+                                  //           allMajortxtColor = textLightColor;
+                                  //           allMajorbgColor = sideBarColor;
+                                  //         });
+                                  //       }
+                                  //     },
+                                  //     txtColor: allMajortxtColor,
+                                  //     backgroundcolor: allMajorbgColor),
                                   ...listMajor.map((e) {
                                     if (listMajor.indexOf(e) ==
                                         selectedMajorIndex) {

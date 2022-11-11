@@ -100,7 +100,6 @@ class LoginRepository {
   bool checkLoggedIn() {
     Map<String, String> head = {};
     head = storage.getItem("headers") ?? {};
-    print(head);
     if (head.isNotEmpty) {
       return true;
     }

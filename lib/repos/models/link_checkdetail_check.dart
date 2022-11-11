@@ -6,7 +6,6 @@ class CheckdetailCheck {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['checkid'] = checkid;
     data['detailid'] = detailid;
     return data;
   }

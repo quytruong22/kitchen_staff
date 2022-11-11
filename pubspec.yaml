@@ -40,6 +40,7 @@ dependencies:
   http: ^0.13.5
   socket_io_client: ^2.0.0
   localstorage: ^4.0.0+1
+  number_inc_dec: ^0.8.0
 
 dev_dependencies:
   flutter_test:

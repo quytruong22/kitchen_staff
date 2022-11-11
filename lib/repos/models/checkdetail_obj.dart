@@ -7,6 +7,7 @@ class CheckDetailDTO {
   final String note;
   final bool isreminded;
   final List<SpecialRequestDTO> specialrequest;
+  int quantitySelected = 0;
   bool isSelected = false;
 
   CheckDetailDTO(
@@ -16,6 +17,18 @@ class CheckDetailDTO {
       required this.note,
       required this.isreminded,
       required this.specialrequest});
+
+  void increaseQuantitySelected() {
+    quantitySelected += 1;
+  }
+
+  void decreaseQuantitySelected() {
+    quantitySelected -= 1;
+  }
+
+  set setQuantitySelected(int newValue) {
+    quantitySelected = newValue;
+  }
 
   set setIsSelected(bool newValue) {
     isSelected = newValue;

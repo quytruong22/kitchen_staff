@@ -27,7 +27,7 @@ class CheckRespository {
   }
 
   // ready
-  void readyCheckdetails(List<CheckDTO> list) async {
+  /*void readyCheckdetails(List<CheckDTO> list) async {
     headers = storage.getItem('headers');
     List<LocationDTO> selectlocation = [];
     List<CheckdetailCheck> selectlist = [];
@@ -63,10 +63,36 @@ class CheckRespository {
         }
       }
     }
+  } */
+
+  void readyCheckdetails(List<CheckDTO> list) async {
+    headers = storage.getItem('headers');
+    List<CheckDetailDTO> selectlist = [];
+    for (var check in list) {
+      for (var checkdetail in check.checkdetail) {
+        if (checkdetail.isSelected) {
+          selectlist.add(checkdetail);
+        }
+      }
+      if (selectlist.isNotEmpty) {
+        final Map<String, dynamic> data = <String, dynamic>{};
+        data['detaillist'] = selectlist.map((item) => item.toJson()).toList();
+        String json = jsonEncode(data);
+        Response res = await put(
+            Uri.parse(uriConnect + '/kitchen/notify/ready/'),
+            headers: headers,
+            body: json);
+        if (res.statusCode == 200) {
+          print(json);
+        } else {
+          print('ready error');
+        }
+      }
+    }
   }
 
   // recall
-  void recallCheckdetails(List<CheckDTO> list) async {
+  /*void recallCheckdetails(List<CheckDTO> list) async {
     headers = storage.getItem('headers');
     List<LocationDTO> selectlocation = [];
     List<CheckDetailDTO> selectlist = [];
@@ -99,6 +125,31 @@ class CheckRespository {
         print(json);
       } else {
         print('recall error');
+      }
+    }
+  } */
+  void recallCheckdetails(List<CheckDTO> list) async {
+    headers = storage.getItem('headers');
+    List<CheckDetailDTO> selectlist = [];
+    for (var check in list) {
+      for (var checkdetail in check.checkdetail) {
+        if (checkdetail.isSelected) {
+          selectlist.add(checkdetail);
+        }
+      }
+      if (selectlist.isNotEmpty) {
+        final Map<String, dynamic> data = <String, dynamic>{};
+        data['detaillist'] = selectlist.map((item) => item.toJson()).toList();
+        String json = jsonEncode(data);
+        Response res = await put(
+            Uri.parse(uriConnect + '/kitchen/notify/recall/'),
+            headers: headers,
+            body: json);
+        if (res.statusCode == 200) {
+          print(json);
+        } else {
+          print('ready error');
+        }
       }
     }
   }
