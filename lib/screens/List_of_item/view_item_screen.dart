@@ -16,7 +16,15 @@ import 'package:flutter/material.dart';
 import 'package:chef_application/config/theme.dart';
 
 class ListItemScreen extends StatefulWidget {
-  const ListItemScreen({Key? key}) : super(key: key);
+  final List<MajorGroup> listMajor;
+  final List<Menu> listMenu;
+  final List<ItemDTO> listItem;
+  const ListItemScreen(
+      {Key? key,
+      required this.listMajor,
+      required this.listMenu,
+      required this.listItem})
+      : super(key: key);
 
   @override
   State<ListItemScreen> createState() => _ListItemScreenState();
@@ -33,6 +41,7 @@ class _ListItemScreenState extends State<ListItemScreen> {
   Color allMajorbgColor = sideBarColor;
   Color allMajortxtColor = textLightColor;
   List<ItemDTO> listShow = [];
+  List<MajorGroup> listMajorShow = [];
   List<MajorGroup> listMajor = [];
   List<Menu> listMenu = [];
   List<ItemDTO> listItem = [];
@@ -58,6 +67,7 @@ class _ListItemScreenState extends State<ListItemScreen> {
       }
     }
     // update list show
+    updateListMajor();
     updateList();
     return listShow;
   }
@@ -73,7 +83,8 @@ class _ListItemScreenState extends State<ListItemScreen> {
     if (selectedMajorIndex != -1) {
       List<ItemDTO> list = [];
       for (var item in listShow) {
-        if (item.majorGroupid == listMajor.elementAt(selectedMajorIndex).id) {
+        if (item.majorGroupid ==
+            listMajorShow.elementAt(selectedMajorIndex).id) {
           list.add(item);
         }
       }
@@ -92,6 +103,23 @@ class _ListItemScreenState extends State<ListItemScreen> {
       listShow = listSearch;
     }
     // sort
+  }
+
+  void updateListMajor() {
+    selectedMajorIndex = -1;
+    listMajorShow = [];
+    for (var item in listItem) {
+      late MajorGroup major;
+      for (var e in listMajor) {
+        if (e.id == item.majorGroupid) {
+          major = e;
+          break;
+        }
+      }
+      if (!listMajorShow.contains(major)) {
+        listMajorShow.add(major);
+      }
+    }
   }
 
   Widget actionBar(BuildContext context) {
@@ -129,9 +157,10 @@ class _ListItemScreenState extends State<ListItemScreen> {
             ),
             ChangeListButton(
                 text: "DANH SÁCH MÓN HIỆN CÓ",
-                press: () {
+                press: () async {
+                  changelist = false;
+                  await updateListByMenu();
                   setState(() {
-                    changelist = false;
                     title = 'Danh sách món ăn hiện có';
                   });
                 },
@@ -173,9 +202,10 @@ class _ListItemScreenState extends State<ListItemScreen> {
             ),
             ChangeListButton(
                 text: "DANH SÁCH MÓN ĐÃ HẾT",
-                press: () {
+                press: () async {
+                  changelist = true;
+                  await updateListByMenu();
                   setState(() {
-                    changelist = true;
                     title = 'Danh sách món ăn đã hết';
                   });
                 },
@@ -188,239 +218,202 @@ class _ListItemScreenState extends State<ListItemScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    listMenu = widget.listMenu;
+    listMajor = widget.listMajor;
+    listMajorShow = listMajor;
+    listItem = widget.listItem;
+    listShow = listItem;
+  }
+
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Background(
-        color: bgColor,
-        child: SafeArea(
-            child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const SideBar(selectedIndex: 2),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: size.width - defaultPadding * 6,
-                  height: size.height * 0.06,
-                  color: textLightColor,
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: size.width * 0.25,
-                        child: Text(
-                          title,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      SizedBox(
-                        width: size.width * 0.6,
-                        height: size.height * 0.05,
-                        child: TextFormField(
-                          onChanged: (value) {
-                            setState(() {
-                              searchName = value;
-                              updateList();
-                            });
-                          },
-                          textInputAction: TextInputAction.next,
-                          cursorColor: primaryColor,
-                          decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.zero,
-                            fillColor: deactiveLightColor,
-                            hintText: "Tìm kiếm tên món ăn",
-                            prefixIcon: Padding(
-                              padding: EdgeInsets.zero,
-                              child: Icon(Icons.search),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          width: size.width - defaultPadding * 6,
+          height: size.height * 0.06,
+          color: textLightColor,
+          child: Row(
+            children: [
+              SizedBox(
+                width: size.width * 0.25,
+                child: Text(
+                  title,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              SizedBox(
+                width: size.width * 0.6,
+                height: size.height * 0.05,
+                child: TextFormField(
+                  onChanged: (value) {
+                    setState(() {
+                      searchName = value;
+                      updateList();
+                    });
+                  },
+                  textInputAction: TextInputAction.next,
+                  cursorColor: primaryColor,
+                  decoration: const InputDecoration(
+                    contentPadding: EdgeInsets.zero,
+                    fillColor: deactiveLightColor,
+                    hintText: "Tìm kiếm tên món ăn",
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.zero,
+                      child: Icon(Icons.search),
+                    ),
                   ),
                 ),
-                SizedBox(
-                  height: size.height * 0.01,
-                ),
-                SizedBox(
-                  height: size.height * 0.1,
-                  width: size.width - defaultPadding * 6,
-                  child: FutureBuilder(
-                      future: service.getMenu(),
-                      builder: (BuildContext context, AsyncSnapshot snapshot) {
-                        if (snapshot.hasData) {
-                          listMenu = snapshot.requireData;
-                          return SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  // MenuButton(
-                                  //     text: 'TẤT CẢ',
-                                  //     press: () {
-                                  //       if (selectedMenuIndex != -1) {
-                                  //         setState(() {
-                                  //           selectedMenuIndex = -1;
-                                  //           updateListByMenu();
-                                  //           alltxtColor = textLightColor;
-                                  //           allbgColor = sideBarColor;
-                                  //         });
-                                  //       }
-                                  //     },
-                                  //     txtColor: alltxtColor,
-                                  //     backgroundcolor: allbgColor),
-                                  ...listMenu.map((e) {
-                                    if (listMenu.indexOf(e) ==
-                                        selectedMenuIndex) {
-                                      return Row(
-                                        children: [
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          MenuButton(
-                                            text: e.name,
-                                            press: () {},
-                                            txtColor: textLightColor,
-                                            backgroundcolor: sideBarColor,
-                                          ),
-                                        ],
-                                      );
-                                    } else {
-                                      return Row(
-                                        children: [
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          MenuButton(
-                                            text: e.name,
-                                            press: () {
-                                              setState(() {
-                                                selectedMenuIndex =
-                                                    listMenu.indexOf(e);
-                                                updateListByMenu();
-                                                allbgColor = textLightColor;
-                                                alltxtColor = sideBarColor;
-                                              });
-                                            },
-                                            backgroundcolor: textLightColor,
-                                            txtColor: sideBarColor,
-                                          ),
-                                        ],
-                                      );
-                                    }
-                                  }).toList(),
-                                ]),
-                          );
-                        }
-                        if (snapshot.hasError) {}
-                        return const Center(child: CircularProgressIndicator());
-                      }),
-                ),
-                SizedBox(
-                  height: size.height * 0.01,
-                ),
-                SizedBox(
-                  height: size.height * 0.07,
-                  width: size.width - defaultPadding * 6,
-                  child: FutureBuilder(
-                      future: service.getMajorGroup(),
-                      builder: (BuildContext context, AsyncSnapshot snapshot) {
-                        if (snapshot.hasData) {
-                          listMajor = snapshot.requireData;
-                          return SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  // MajorButton(
-                                  //     text: 'TẤT CẢ',
-                                  //     press: () {
-                                  //       if (selectedMajorIndex != -1) {
-                                  //         setState(() {
-                                  //           selectedMajorIndex = -1;
-                                  //           updateList();
-                                  //           allMajortxtColor = textLightColor;
-                                  //           allMajorbgColor = sideBarColor;
-                                  //         });
-                                  //       }
-                                  //     },
-                                  //     txtColor: allMajortxtColor,
-                                  //     backgroundcolor: allMajorbgColor),
-                                  ...listMajor.map((e) {
-                                    if (listMajor.indexOf(e) ==
-                                        selectedMajorIndex) {
-                                      return Row(
-                                        children: [
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          MajorButton(
-                                            text: e.name,
-                                            press: () {},
-                                            txtColor: textLightColor,
-                                            backgroundcolor: sideBarColor,
-                                          ),
-                                        ],
-                                      );
-                                    } else {
-                                      return Row(
-                                        children: [
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          MajorButton(
-                                            text: e.name,
-                                            press: () {
-                                              setState(() {
-                                                selectedMajorIndex =
-                                                    listMajor.indexOf(e);
-                                                updateList();
-                                                allMajorbgColor =
-                                                    textLightColor;
-                                                allMajortxtColor = sideBarColor;
-                                              });
-                                            },
-                                            backgroundcolor: textLightColor,
-                                            txtColor: sideBarColor,
-                                          ),
-                                        ],
-                                      );
-                                    }
-                                  }).toList(),
-                                ]),
-                          );
-                        }
-                        if (snapshot.hasError) {}
-                        return const Center(child: CircularProgressIndicator());
-                      }),
-                ),
-                SizedBox(
-                  height: size.height * 0.01,
-                ),
-                Expanded(
-                    child: SizedBox(
-                  width: size.width - defaultPadding * 6,
-                  height: size.height * 0.58,
-                  child: FutureBuilder(
-                      future: updateListByMenu(),
-                      builder: (BuildContext context, AsyncSnapshot snapshot) {
-                        if (snapshot.hasData) {
-                          return GridView.count(
-                            crossAxisSpacing: 10,
-                            crossAxisCount: 5,
-                            children: [
-                              ...listShow.map((e) => CardItem(item: e)).toList()
-                            ],
-                          );
-                        }
-                        if (snapshot.hasError) {}
-                        return const Center(child: CircularProgressIndicator());
-                      }),
-                )),
-                actionBar(context)
-              ],
-            )
-          ],
-        )));
+              ),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: size.height * 0.01,
+        ),
+        SizedBox(
+            height: size.height * 0.1,
+            width: size.width - defaultPadding * 6,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                // MenuButton(
+                //     text: 'TẤT CẢ',
+                //     press: () {
+                //       if (selectedMenuIndex != -1) {
+                //         setState(() {
+                //           selectedMenuIndex = -1;
+                //           updateListByMenu();
+                //           alltxtColor = textLightColor;
+                //           allbgColor = sideBarColor;
+                //         });
+                //       }
+                //     },
+                //     txtColor: alltxtColor,
+                //     backgroundcolor: allbgColor),
+                ...listMenu.map((e) {
+                  if (listMenu.indexOf(e) == selectedMenuIndex) {
+                    return Row(
+                      children: [
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        MenuButton(
+                          text: e.name,
+                          press: () {},
+                          txtColor: textLightColor,
+                          backgroundcolor: sideBarColor,
+                        ),
+                      ],
+                    );
+                  } else {
+                    return Row(
+                      children: [
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        MenuButton(
+                          text: e.name,
+                          press: () async {
+                            selectedMenuIndex = listMenu.indexOf(e);
+                            await updateListByMenu();
+                            setState(() {
+                              allbgColor = textLightColor;
+                              alltxtColor = sideBarColor;
+                            });
+                          },
+                          backgroundcolor: textLightColor,
+                          txtColor: sideBarColor,
+                        ),
+                      ],
+                    );
+                  }
+                }).toList(),
+              ]),
+            )),
+        SizedBox(
+          height: size.height * 0.01,
+        ),
+        SizedBox(
+            height: size.height * 0.07,
+            width: size.width - defaultPadding * 6,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                // MajorButton(
+                //     text: 'TẤT CẢ',
+                //     press: () {
+                //       if (selectedMajorIndex != -1) {
+                //         setState(() {
+                //           selectedMajorIndex = -1;
+                //           updateList();
+                //           allMajortxtColor = textLightColor;
+                //           allMajorbgColor = sideBarColor;
+                //         });
+                //       }
+                //     },
+                //     txtColor: allMajortxtColor,
+                //     backgroundcolor: allMajorbgColor),
+                ...listMajorShow.map((e) {
+                  if (listMajorShow.indexOf(e) == selectedMajorIndex) {
+                    return Row(
+                      children: [
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        MajorButton(
+                          text: e.name,
+                          press: () {},
+                          txtColor: textLightColor,
+                          backgroundcolor: sideBarColor,
+                        ),
+                      ],
+                    );
+                  } else {
+                    return Row(
+                      children: [
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        MajorButton(
+                          text: e.name,
+                          press: () {
+                            setState(() {
+                              selectedMajorIndex = listMajorShow.indexOf(e);
+                              updateList();
+                              allMajorbgColor = textLightColor;
+                              allMajortxtColor = sideBarColor;
+                            });
+                          },
+                          backgroundcolor: textLightColor,
+                          txtColor: sideBarColor,
+                        ),
+                      ],
+                    );
+                  }
+                }).toList(),
+              ]),
+            )),
+        SizedBox(
+          height: size.height * 0.01,
+        ),
+        Expanded(
+            child: SizedBox(
+                width: size.width - defaultPadding * 6,
+                height: size.height * 0.58,
+                child: GridView.count(
+                  crossAxisSpacing: 10,
+                  crossAxisCount: 5,
+                  children: [
+                    ...listShow.map((e) => CardItem(item: e)).toList()
+                  ],
+                ))),
+        actionBar(context)
+      ],
+    );
   }
 }

@@ -159,6 +159,9 @@ class _OrderItemViewState extends State<OrderItemView> {
                 children: checkDetailShow(context),
               ),
             ),
+            SizedBox(
+              height: 56,
+            )
             //quantitySelect(context)
           ]),
     );

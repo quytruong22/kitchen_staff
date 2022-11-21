@@ -31,15 +31,10 @@ class Socket {
     }
   }
 
-  //
-  void sendToServer() {}
-
   // disconnect
   void disconnectServer() {
     if (!socket.disconnected) {
       socket.disconnect();
     }
   }
-
-  // listen
 }

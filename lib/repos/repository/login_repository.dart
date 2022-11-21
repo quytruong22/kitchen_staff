@@ -13,12 +13,10 @@ class LoginRepository {
     Map data = {"username": user, "password": password};
     var body = json.encode(data);
     print(body);
-    Response res = await post(Uri.parse(uriConnect + '/login/'),
+    Response res = await post(Uri.parse(uriConnect + '/login/kds/'),
         headers: {"Content-Type": "application/json"}, body: body);
     if (res.statusCode == 200) {
       result = jsonDecode(res.body)['role'] as String;
-      storage.setItem('user', user);
-      storage.setItem('password', password);
       _updateCookie(res);
     } else {
       result = jsonDecode(res.body)['msg'] as String;
@@ -30,13 +28,8 @@ class LoginRepository {
   Future<bool> logout() async {
     bool result = false;
     Map<String, String> head = storage.getItem("headers");
-    String user = storage.getItem("user");
-    String password = storage.getItem("password");
-    Map data = {"username": user, "password": password};
-    var body = json.encode(data);
-    print(body);
-    Response res = await post(Uri.parse(uriConnect + '/logout/'),
-        headers: head, body: body);
+    Response res =
+        await post(Uri.parse(uriConnect + '/logout/'), headers: head);
     if (res.statusCode == 200) {
       result = true;
       storage.clear();

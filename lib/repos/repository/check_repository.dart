@@ -1,10 +1,6 @@
 import 'package:chef_application/config/routes.dart';
 import 'package:chef_application/repos/models/check_obj.dart';
 import 'package:chef_application/repos/models/checkdetail_obj.dart';
-import 'package:chef_application/repos/models/link_checkdetail_check.dart';
-import 'package:chef_application/repos/models/link_location_checkdetail.dart';
-import 'package:chef_application/repos/models/link_location_checkdetailcheck.dart';
-import 'package:chef_application/repos/models/location_obj.dart';
 import 'package:http/http.dart';
 import 'package:localstorage/localstorage.dart';
 import 'dart:convert';

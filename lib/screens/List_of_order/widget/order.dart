@@ -26,12 +26,13 @@ class _OrderViewState extends State<OrderView> {
     super.initState();
     // call timer
     checkTime = widget.check.runningsince;
+
     timer = Timer.periodic(const Duration(seconds: 1), ((timer) {
       setState(() {
         DateTime countUp = DateTime.now().subtract(Duration(
             hours: checkTime.hour,
             minutes: checkTime.minute,
-            seconds: checkTime.second));
+            seconds: checkTime.second - 15));
         countTime = DateFormat('HH:mm:ss').format(countUp);
       });
     }));
