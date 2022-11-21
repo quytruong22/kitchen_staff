@@ -136,21 +136,21 @@ class _ListItemScreenState extends State<ListItemScreen> {
               alignment: Alignment.center,
               child: ActionButton(
                   text: "NHẬP HÀNG",
-                  press: () {
-                    setState(() {
-                      List<ItemDTO> selectList = [];
-                      for (var e in listShow) {
-                        if (e.isSelected) {
-                          selectList.add(e);
-                        }
+                  press: () async {
+                    List<ItemDTO> selectList = [];
+                    for (var e in listShow) {
+                      if (e.isSelected) {
+                        selectList.add(e);
                       }
-                      if (selectList != []) {
-                        ListItem encode = ListItem(list: selectList);
-                        String jsonList = jsonEncode(encode);
-                        service.setInstock(jsonList);
-                        print(jsonList);
-                      }
-                    });
+                    }
+                    if (selectList != []) {
+                      ListItem encode = ListItem(list: selectList);
+                      String jsonList = jsonEncode(encode);
+                      service.setInstock(jsonList);
+                      print(jsonList);
+                    }
+                    await updateListByMenu();
+                    setState(() {});
                   },
                   icon: Icons.remove_shopping_cart_outlined,
                   color: activeColor),
@@ -181,21 +181,21 @@ class _ListItemScreenState extends State<ListItemScreen> {
               alignment: Alignment.center,
               child: ActionButton(
                   text: "ĐÃ HẾT",
-                  press: () {
-                    setState(() {
-                      List<ItemDTO> selectList = [];
-                      for (var e in listShow) {
-                        if (e.isSelected) {
-                          selectList.add(e);
-                        }
+                  press: () async {
+                    List<ItemDTO> selectList = [];
+                    for (var e in listShow) {
+                      if (e.isSelected) {
+                        selectList.add(e);
                       }
-                      if (selectList != []) {
-                        ListItem encode = ListItem(list: selectList);
-                        String jsonList = jsonEncode(encode);
-                        service.setOutOfStock(jsonList);
-                        print(jsonList);
-                      }
-                    });
+                    }
+                    if (selectList != []) {
+                      ListItem encode = ListItem(list: selectList);
+                      String jsonList = jsonEncode(encode);
+                      service.setOutOfStock(jsonList);
+                      print(jsonList);
+                    }
+                    await updateListByMenu();
+                    setState(() {});
                   },
                   icon: Icons.add_shopping_cart,
                   color: voidColor),
