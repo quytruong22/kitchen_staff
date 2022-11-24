@@ -1,8 +1,6 @@
 import 'dart:convert';
 
 import 'package:chef_application/common/widgets/action_button.dart';
-import 'package:chef_application/common/widgets/background.dart';
-import 'package:chef_application/common/widgets/side_bar.dart';
 import 'package:chef_application/repos/models/item_obj.dart';
 import 'package:chef_application/repos/models/major_group_obj.dart';
 import 'package:chef_application/repos/models/menu_obj.dart';
@@ -146,7 +144,7 @@ class _ListItemScreenState extends State<ListItemScreen> {
                     if (selectList != []) {
                       ListItem encode = ListItem(list: selectList);
                       String jsonList = jsonEncode(encode);
-                      service.setInstock(jsonList);
+                      await service.setInstock(jsonList);
                       print(jsonList);
                     }
                     await updateListByMenu();
@@ -191,7 +189,7 @@ class _ListItemScreenState extends State<ListItemScreen> {
                     if (selectList != []) {
                       ListItem encode = ListItem(list: selectList);
                       String jsonList = jsonEncode(encode);
-                      service.setOutOfStock(jsonList);
+                      await service.setOutOfStock(jsonList);
                       print(jsonList);
                     }
                     await updateListByMenu();

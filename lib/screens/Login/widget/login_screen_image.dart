@@ -1,3 +1,4 @@
+import 'package:chef_application/repos/service/login_service.dart';
 import 'package:flutter/material.dart';
 
 import '../../../config/theme.dart';
@@ -32,8 +33,19 @@ class LoginScreenImage extends StatelessWidget {
                 flex: 8,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(15),
-                  child: Image.network(
-                      'https://cdn.discordapp.com/attachments/900392963639750657/1034099310419267654/Logo.png'),
+                  child: FutureBuilder(
+                      future: LoginService().getRestaurantImage(),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if (snapshot.hasData) {
+                          String imageLink = snapshot.requireData;
+                          if (imageLink != "") {
+                            return Image.network(imageLink);
+                          } else {
+                            return const Icon(Icons.error);
+                          }
+                        }
+                        return const Center(child: CircularProgressIndicator());
+                      }),
                 ),
               ),
               // const Spacer(),

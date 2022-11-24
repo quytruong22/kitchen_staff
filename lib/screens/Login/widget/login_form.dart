@@ -73,7 +73,7 @@ class LoginForm extends StatelessWidget {
                   showDialog(
                       context: context,
                       builder: (context) => WarningPopUp(
-                          msg: 'Vai trò của tài khoản không phù hợp.'));
+                          msg: 'Vai trò của người dùng không phù hợp.'));
                 } else {
                   showDialog(
                       context: context,

@@ -22,46 +22,7 @@ class CheckRespository {
     return [];
   }
 
-  // ready
-  /*void readyCheckdetails(List<CheckDTO> list) async {
-    headers = storage.getItem('headers');
-    List<LocationDTO> selectlocation = [];
-    List<CheckdetailCheck> selectlist = [];
-    for (var check in list) {
-      for (var checkdetail in check.checkdetail) {
-        if (checkdetail.isSelected) {
-          selectlist.add(CheckdetailCheck(
-              checkid: check.checkid, detailid: checkdetail.checkdetailid));
-          bool confirm = true;
-          for (var location in selectlocation) {
-            if (location.id == check.locationid) {
-              confirm = false;
-              break;
-            }
-          }
-          if (confirm) {
-            selectlocation.add(LocationDTO(id: check.locationid));
-          }
-        }
-      }
-      if (selectlocation.isNotEmpty && selectlist.isNotEmpty) {
-        LocationCheckdetailCheck selected = LocationCheckdetailCheck(
-            listLocation: selectlocation, listCheckdetailCheck: selectlist);
-        String json = jsonEncode(selected);
-        Response res = await put(
-            Uri.parse(uriConnect + '/kitchen/notify/ready/'),
-            headers: headers,
-            body: json);
-        if (res.statusCode == 200) {
-          print(json);
-        } else {
-          print('ready error');
-        }
-      }
-    }
-  } */
-
-  void readyCheckdetails(List<CheckDTO> list) async {
+  Future<void> readyCheckdetails(List<CheckDTO> list) async {
     headers = storage.getItem('headers');
     List<CheckDetailDTO> selectlist = [];
     for (var check in list) {
@@ -87,44 +48,7 @@ class CheckRespository {
     }
   }
 
-  // recall
-  /*void recallCheckdetails(List<CheckDTO> list) async {
-    headers = storage.getItem('headers');
-    List<LocationDTO> selectlocation = [];
-    List<CheckDetailDTO> selectlist = [];
-    for (var check in list) {
-      for (var checkdetail in check.checkdetail) {
-        if (checkdetail.isSelected) {
-          selectlist.add(checkdetail);
-          bool confirm = true;
-          for (var location in selectlocation) {
-            if (location.id == check.locationid) {
-              confirm = false;
-              break;
-            }
-          }
-          if (confirm) {
-            selectlocation.add(LocationDTO(id: check.locationid));
-          }
-        }
-      }
-    }
-    if (selectlocation.isNotEmpty && selectlist.isNotEmpty) {
-      LocationCheckdetail selected = LocationCheckdetail(
-          listLocation: selectlocation, listCheckdetail: selectlist);
-      String json = jsonEncode(selected);
-      Response res = await put(
-          Uri.parse(uriConnect + '/kitchen/notify/recall/'),
-          headers: headers,
-          body: json);
-      if (res.statusCode == 200) {
-        print(json);
-      } else {
-        print('recall error');
-      }
-    }
-  } */
-  void recallCheckdetails(List<CheckDTO> list) async {
+  Future<void> recallCheckdetails(List<CheckDTO> list) async {
     headers = storage.getItem('headers');
     List<CheckDetailDTO> selectlist = [];
     for (var check in list) {

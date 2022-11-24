@@ -14,4 +14,8 @@ class LoginService {
   bool checkLoggedIn() {
     return respo.checkLoggedIn();
   }
+
+  Future<String> getRestaurantImage() async {
+    return respo.getRestaurantImage();
+  }
 }

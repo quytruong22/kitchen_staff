@@ -1,7 +1,6 @@
 import 'package:chef_application/config/theme.dart';
 import 'package:chef_application/repos/models/checkdetail_obj.dart';
 import 'package:flutter/material.dart';
-import 'package:number_inc_dec/number_inc_dec.dart';
 
 class OrderItemView extends StatefulWidget {
   final CheckDetailDTO checkDetail;
@@ -159,7 +158,7 @@ class _OrderItemViewState extends State<OrderItemView> {
                 children: checkDetailShow(context),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 56,
             )
             //quantitySelect(context)

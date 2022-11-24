@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:chef_application/common/widgets/action_button.dart';
 import 'package:chef_application/common/widgets/background.dart';
 import 'package:chef_application/common/widgets/side_bar.dart';
@@ -20,6 +22,7 @@ class _ListOrderScreenState extends State<ListOrderScreen> {
   CheckService service = CheckService();
   List<CheckDTO> list = [];
   Socket socket = Socket();
+  late Timer timer;
 
   List<Widget> listCheck(BuildContext context, List<CheckDTO> list) {
     return list.map((e) => OrderView(check: e)).toList();
@@ -31,6 +34,19 @@ class _ListOrderScreenState extends State<ListOrderScreen> {
 
     socket.declareSocket();
     socket.connectServer();
+    socket.socket.on('update-kds-kitchen', (data) {
+      setState(() {});
+    });
+    timer = Timer.periodic(const Duration(seconds: 30), ((timer) {
+      setState(() {
+        if (socket.socket.disconnected) {
+          print('reload - disconnected');
+          socket.connectServer();
+        } else {
+          print('reload - connected');
+        }
+      });
+    }));
   }
 
   @override
@@ -38,13 +54,11 @@ class _ListOrderScreenState extends State<ListOrderScreen> {
     super.dispose();
     socket.disconnectServer();
     socket.socket.dispose();
+    timer.cancel();
   }
 
   @override
   Widget build(BuildContext context) {
-    socket.socket.on('update-kds-kitchen', (data) {
-      setState(() {});
-    });
     Size size = MediaQuery.of(context).size;
     return Background(
         color: bgColor,
@@ -90,19 +104,17 @@ class _ListOrderScreenState extends State<ListOrderScreen> {
                     children: [
                       ActionButton(
                           text: "HOÀN THÀNH",
-                          press: () {
-                            setState(() {
-                              service.readyCheckDetail(list);
-                            });
+                          press: () async {
+                            await service.readyCheckDetail(list);
+                            setState(() {});
                           },
                           icon: Icons.fastfood,
                           color: warningColor),
                       ActionButton(
                           text: "TRẢ LẠI",
-                          press: () {
-                            setState(() {
-                              service.recallCheckDetail(list);
-                            });
+                          press: () async {
+                            await service.recallCheckDetail(list);
+                            setState(() {});
                           },
                           icon: Icons.no_food,
                           color: voidColor),

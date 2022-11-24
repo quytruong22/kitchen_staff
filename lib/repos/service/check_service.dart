@@ -9,12 +9,12 @@ class CheckService {
   }
 
   // notify ready
-  void readyCheckDetail(List<CheckDTO> list) {
-    respo.readyCheckdetails(list);
+  Future<void> readyCheckDetail(List<CheckDTO> list) async {
+    await respo.readyCheckdetails(list);
   }
 
   // notify recall
-  void recallCheckDetail(List<CheckDTO> list) {
-    respo.recallCheckdetails(list);
+  Future<void> recallCheckDetail(List<CheckDTO> list) async {
+    await respo.recallCheckdetails(list);
   }
 }
