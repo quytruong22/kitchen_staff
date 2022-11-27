@@ -39,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                   height: 390,
-                  width: 300,
+                  width: 390,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [

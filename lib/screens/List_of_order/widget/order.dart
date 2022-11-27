@@ -32,7 +32,7 @@ class _OrderViewState extends State<OrderView> {
         DateTime countUp = DateTime.now().subtract(Duration(
             hours: checkTime.hour,
             minutes: checkTime.minute,
-            seconds: checkTime.second - 15));
+            seconds: checkTime.second));
         countTime = DateFormat('HH:mm:ss').format(countUp);
       });
     }));

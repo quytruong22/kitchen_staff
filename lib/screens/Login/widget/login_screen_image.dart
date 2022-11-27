@@ -14,7 +14,7 @@ class LoginScreenImage extends StatelessWidget {
       children: [
         const SizedBox(height: defaultPadding * 2),
         Container(
-          width: 300,
+          width: 390,
           decoration: BoxDecoration(
             color: textLightColor,
             borderRadius: BorderRadius.circular(15.0),
