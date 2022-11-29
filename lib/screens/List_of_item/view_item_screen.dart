@@ -65,6 +65,9 @@ class _ListItemScreenState extends State<ListItemScreen> {
       }
     }
     // update list show
+    selectedMajorIndex = -1;
+    allMajortxtColor = textLightColor;
+    allMajorbgColor = sideBarColor;
     updateListMajor();
     updateList();
     return listShow;
@@ -279,20 +282,22 @@ class _ListItemScreenState extends State<ListItemScreen> {
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                // MenuButton(
-                //     text: 'TẤT CẢ',
-                //     press: () {
-                //       if (selectedMenuIndex != -1) {
-                //         setState(() {
-                //           selectedMenuIndex = -1;
-                //           updateListByMenu();
-                //           alltxtColor = textLightColor;
-                //           allbgColor = sideBarColor;
-                //         });
-                //       }
-                //     },
-                //     txtColor: alltxtColor,
-                //     backgroundcolor: allbgColor),
+                MenuButton(
+                    text: 'TẤT CẢ MENU',
+                    press: () async {
+                      if (selectedMenuIndex != -1) {
+                        selectedMenuIndex = -1;
+                        await updateListByMenu();
+                        setState(() {
+                          selectedMenuIndex = -1;
+                          updateListByMenu();
+                          alltxtColor = textLightColor;
+                          allbgColor = sideBarColor;
+                        });
+                      }
+                    },
+                    txtColor: alltxtColor,
+                    backgroundcolor: allbgColor),
                 ...listMenu.map((e) {
                   if (listMenu.indexOf(e) == selectedMenuIndex) {
                     return Row(
@@ -342,20 +347,20 @@ class _ListItemScreenState extends State<ListItemScreen> {
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                // MajorButton(
-                //     text: 'TẤT CẢ',
-                //     press: () {
-                //       if (selectedMajorIndex != -1) {
-                //         setState(() {
-                //           selectedMajorIndex = -1;
-                //           updateList();
-                //           allMajortxtColor = textLightColor;
-                //           allMajorbgColor = sideBarColor;
-                //         });
-                //       }
-                //     },
-                //     txtColor: allMajortxtColor,
-                //     backgroundcolor: allMajorbgColor),
+                MajorButton(
+                    text: 'Tất cả nhóm',
+                    press: () {
+                      if (selectedMajorIndex != -1) {
+                        setState(() {
+                          selectedMajorIndex = -1;
+                          updateList();
+                          allMajortxtColor = textLightColor;
+                          allMajorbgColor = sideBarColor;
+                        });
+                      }
+                    },
+                    txtColor: allMajortxtColor,
+                    backgroundcolor: allMajorbgColor),
                 ...listMajorShow.map((e) {
                   if (listMajorShow.indexOf(e) == selectedMajorIndex) {
                     return Row(
