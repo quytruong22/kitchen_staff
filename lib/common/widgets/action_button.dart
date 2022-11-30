@@ -18,7 +18,7 @@ class ActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SizedBox(
-      width: size.height * 0.45,
+      width: size.width * 0.45,
       height: 60,
       child: ElevatedButton(
         child: Column(
