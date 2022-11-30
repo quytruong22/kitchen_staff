@@ -31,29 +31,51 @@ class LoginForm extends StatelessWidget {
             textInputAction: TextInputAction.next,
             cursorColor: primaryColor,
             decoration: const InputDecoration(
+              filled: true,
               fillColor: deactiveLightColor,
+              prefixIconColor: primaryColor,
+              contentPadding: EdgeInsets.symmetric(
+                  horizontal: defaultPadding, vertical: defaultPadding),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(30)),
+                borderSide: BorderSide.none,
+              ),
               hintText: "Tài khoản",
               prefixIcon: Padding(
                 padding: EdgeInsets.all(defaultPadding),
-                child: Icon(Icons.person),
+                child: Icon(
+                  Icons.person,
+                  color: primaryColor,
+                ),
               ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: defaultPadding),
             child: TextFormField(
-              onChanged: (value) {
-                password = value;
-              },
               textInputAction: TextInputAction.done,
               obscureText: true,
               cursorColor: textColor,
+              onChanged: (value) {
+                password = value;
+              },
               decoration: const InputDecoration(
+                filled: true,
                 fillColor: deactiveLightColor,
+                prefixIconColor: primaryColor,
+                contentPadding: EdgeInsets.symmetric(
+                    horizontal: defaultPadding, vertical: defaultPadding),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(30)),
+                  borderSide: BorderSide.none,
+                ),
                 hintText: "Mật khẩu",
                 prefixIcon: Padding(
                   padding: EdgeInsets.all(defaultPadding),
-                  child: Icon(Icons.lock),
+                  child: Icon(
+                    Icons.lock,
+                    color: primaryColor,
+                  ),
                 ),
               ),
             ),
@@ -64,6 +86,10 @@ class LoginForm extends StatelessWidget {
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: activeColor,
+                elevation: 0,
+                shape: const StadiumBorder(),
+                maximumSize: const Size(double.infinity, 56),
+                minimumSize: const Size(double.infinity, 56),
               ),
               onPressed: () async {
                 String result = await loginToSystem(user, password);
@@ -91,6 +117,10 @@ class LoginForm extends StatelessWidget {
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: voidColor,
+                elevation: 0,
+                shape: const StadiumBorder(),
+                maximumSize: const Size(double.infinity, 56),
+                minimumSize: const Size(double.infinity, 56),
               ),
               onPressed: () {
                 SystemNavigator.pop();

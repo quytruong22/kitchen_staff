@@ -29,7 +29,7 @@ class _SideBarState extends State<SideBar> {
           color: sideBarColor,
           child: SizedBox(
             height: MediaQuery.of(context).size.height - defaultPadding * 1.5,
-            width: MediaQuery.of(context).size.width / 14,
+            width: 75,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -42,7 +42,9 @@ class _SideBarState extends State<SideBar> {
                         }
                       },
                       style: TextButton.styleFrom(
+                        fixedSize: const Size(75, 75),
                         backgroundColor: sideBarColor,
+                        padding: EdgeInsets.zero,
                       ),
                       child: Column(
                         children: <Widget>[
@@ -70,7 +72,9 @@ class _SideBarState extends State<SideBar> {
                         }
                       },
                       style: TextButton.styleFrom(
+                        fixedSize: const Size(75, 75),
                         backgroundColor: sideBarColor,
+                        padding: EdgeInsets.zero,
                       ),
                       child: Column(
                         children: <Widget>[
@@ -100,7 +104,9 @@ class _SideBarState extends State<SideBar> {
                     }
                   },
                   style: TextButton.styleFrom(
+                    fixedSize: const Size(75, 75),
                     backgroundColor: sideBarColor,
+                    padding: EdgeInsets.zero,
                   ),
                   child: Column(
                     children: const <Widget>[

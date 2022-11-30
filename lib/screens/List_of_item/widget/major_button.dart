@@ -17,11 +17,10 @@ class MajorButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Container(
       padding: EdgeInsets.zero,
-      width: size.height * 0.12,
-      height: size.height * 0.07,
+      width: 75,
+      height: 50,
       child: ElevatedButton(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

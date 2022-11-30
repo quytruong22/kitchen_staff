@@ -50,7 +50,7 @@ class _LoadViewItemScreenState extends State<LoadViewItemScreen> {
                     }
                   }
                   return SizedBox(
-                      width: MediaQuery.of(context).size.width * 13 / 14,
+                      width: MediaQuery.of(context).size.width - 75,
                       child: const Center(child: CircularProgressIndicator()));
                 }),
           ],

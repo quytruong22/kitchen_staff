@@ -21,37 +21,33 @@ class _LoginScreenState extends State<LoginScreen> {
       child: SingleChildScrollView(
         child: Responsive(
           tablet: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              const Expanded(
-                child: LoginScreenImage(),
-              ),
-              Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: textLightColor,
-                    borderRadius: BorderRadius.circular(15.0),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: shadowColor,
-                        blurRadius: 4,
-                        offset: Offset(0, 4), // Shadow position
-                      ),
-                    ],
-                  ),
-                  height: 390,
-                  width: 390,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      SizedBox(
-                        width: 390,
-                        child: LoginForm(),
-                      ),
-                    ],
-                  ),
+              const LoginScreenImage(),
+              Container(
+                height: 390,
+                width: 420,
+                decoration: BoxDecoration(
+                  color: textLightColor,
+                  borderRadius: BorderRadius.circular(15.0),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: shadowColor,
+                      blurRadius: 4,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    SizedBox(
+                      width: 360,
+                      child: LoginForm(),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(width: defaultPadding * 3),
             ],
           ),
         ),

@@ -52,10 +52,9 @@ class _OrderViewState extends State<OrderView> {
     return Container(
         width: size.width * 0.2,
         margin: const EdgeInsets.all(10.0),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: textLightColor,
-          borderRadius: BorderRadius.circular(5),
-          boxShadow: const [
+          boxShadow: [
             BoxShadow(
               color: shadowColor,
               blurRadius: 3,

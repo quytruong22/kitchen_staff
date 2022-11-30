@@ -43,7 +43,6 @@ class _CardItemState extends State<CardItem> {
             Flexible(
                 flex: 3,
                 child: Container(
-                    width: size.width,
                     decoration: BoxDecoration(
                         borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(6.0),
@@ -53,9 +52,8 @@ class _CardItemState extends State<CardItem> {
                           fit: BoxFit.cover,
                         )))),
             Flexible(
-                flex: 1,
+                flex: 2,
                 child: Container(
-                  width: size.width,
                   color: backgroundColor(context),
                   padding: const EdgeInsets.all(5),
                   child: Column(

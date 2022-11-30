@@ -128,12 +128,12 @@ class _ListItemScreenState extends State<ListItemScreen> {
     if (changelist) {
       return Container(
         color: primaryColor,
-        width: size.width - size.width / 14,
-        height: size.height * 0.12,
+        width: size.width - 75,
+        height: 75,
         child: Row(
           children: [
             Container(
-              width: size.width - size.width / 14 - size.height * 0.12,
+              width: size.width - 150,
               alignment: Alignment.center,
               child: ActionButton(
                   text: "NHẬP HÀNG",
@@ -173,12 +173,12 @@ class _ListItemScreenState extends State<ListItemScreen> {
     } else {
       return Container(
         color: primaryColor,
-        width: size.width - size.width / 14,
-        height: size.height * 0.12,
+        width: size.width - 75,
+        height: 75,
         child: Row(
           children: [
             Container(
-              width: size.width - size.width / 14 - size.height * 0.12,
+              width: size.width - 150,
               alignment: Alignment.center,
               child: ActionButton(
                   text: "ĐÃ HẾT",
@@ -235,21 +235,21 @@ class _ListItemScreenState extends State<ListItemScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-          width: size.width - defaultPadding * 6,
-          height: size.height * 0.06,
+          width: size.width - 75,
+          height: 50,
           color: textLightColor,
           child: Row(
             children: [
               SizedBox(
-                width: size.width * 0.25,
+                width: (size.width - 75) * 0.25,
                 child: Text(
                   title,
                   textAlign: TextAlign.center,
                 ),
               ),
               SizedBox(
-                width: size.width * 0.6,
-                height: size.height * 0.05,
+                width: (size.width - 75) * 0.6,
+                height: 40,
                 child: TextFormField(
                   onChanged: (value) {
                     setState(() {
@@ -273,15 +273,18 @@ class _ListItemScreenState extends State<ListItemScreen> {
             ],
           ),
         ),
-        SizedBox(
-          height: size.height * 0.01,
+        const SizedBox(
+          height: 5,
         ),
         SizedBox(
-            height: size.height * 0.1,
-            width: size.width - defaultPadding * 6,
+            height: 75,
+            width: size.width - 75,
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                const SizedBox(
+                  width: 10,
+                ),
                 MenuButton(
                     text: 'TẤT CẢ MENU',
                     press: () async {
@@ -338,15 +341,18 @@ class _ListItemScreenState extends State<ListItemScreen> {
                 }).toList(),
               ]),
             )),
-        SizedBox(
-          height: size.height * 0.01,
+        const SizedBox(
+          height: 5,
         ),
         SizedBox(
-            height: size.height * 0.07,
-            width: size.width - defaultPadding * 6,
+            height: 50,
+            width: size.width - 75,
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                const SizedBox(
+                  width: 10,
+                ),
                 MajorButton(
                     text: 'Tất cả nhóm',
                     press: () {
@@ -401,13 +407,12 @@ class _ListItemScreenState extends State<ListItemScreen> {
                 }).toList(),
               ]),
             )),
-        SizedBox(
-          height: size.height * 0.01,
+        const SizedBox(
+          height: 5,
         ),
         Expanded(
             child: SizedBox(
-                width: size.width - defaultPadding * 6,
-                height: size.height * 0.58,
+                width: size.width - 75,
                 child: GridView.count(
                   crossAxisSpacing: 10,
                   crossAxisCount: 5,

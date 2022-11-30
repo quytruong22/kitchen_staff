@@ -17,10 +17,9 @@ class MenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return SizedBox(
-      width: size.height * 0.1,
-      height: size.height * 0.1,
+      width: 75,
+      height: 75,
       child: ElevatedButton(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

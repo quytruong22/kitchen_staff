@@ -24,7 +24,7 @@ class _ListOrderScreenState extends State<ListOrderScreen> {
   Socket socket = Socket();
   late Timer timer;
 
-  List<Widget> listCheck(BuildContext context, List<CheckDTO> list) {
+  List<Widget> listCheck(List<CheckDTO> list) {
     return list.map((e) => OrderView(check: e)).toList();
   }
 
@@ -71,8 +71,7 @@ class _ListOrderScreenState extends State<ListOrderScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                    width: size.width - size.width / 14,
-                    height: size.height * 0.8,
+                    width: size.width - 75,
                     child: FutureBuilder(
                         future: service.getChecks(),
                         builder:
@@ -87,7 +86,7 @@ class _ListOrderScreenState extends State<ListOrderScreen> {
                                 return item;
                               },
                               numberOfColumn: 4,
-                              listOfItem: listCheck(context, list),
+                              listOfItem: listCheck(list),
                             ));
                           }
                           if (snapshot.hasError) {}
@@ -96,8 +95,8 @@ class _ListOrderScreenState extends State<ListOrderScreen> {
                         })),
                 Container(
                   color: primaryColor,
-                  width: size.width - size.width / 14,
-                  height: size.height * 0.12,
+                  width: size.width - 75,
+                  height: 75,
                   alignment: Alignment.center,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,

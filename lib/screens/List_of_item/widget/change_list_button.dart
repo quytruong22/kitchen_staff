@@ -16,10 +16,9 @@ class ChangeListButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return SizedBox(
-      width: size.height * 0.1,
-      height: size.height * 0.1,
+      width: 70,
+      height: 70,
       child: ElevatedButton(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

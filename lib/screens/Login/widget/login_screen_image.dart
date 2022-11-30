@@ -22,13 +22,12 @@ class LoginScreenImage extends StatelessWidget {
               BoxShadow(
                 color: shadowColor,
                 blurRadius: 4,
-                offset: Offset(0, 4), // Shadow position
+                offset: Offset(0, 4),
               ),
             ],
           ),
           child: Row(
             children: [
-              // const Spacer(),
               Expanded(
                 flex: 8,
                 child: ClipRRect(
@@ -48,7 +47,6 @@ class LoginScreenImage extends StatelessWidget {
                       }),
                 ),
               ),
-              // const Spacer(),
             ],
           ),
         ),
