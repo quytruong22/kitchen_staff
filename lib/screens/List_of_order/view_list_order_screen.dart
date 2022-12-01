@@ -72,6 +72,7 @@ class _ListOrderScreenState extends State<ListOrderScreen> {
               children: [
                 SizedBox(
                     width: size.width - 75,
+                    height: size.height - 99,
                     child: FutureBuilder(
                         future: service.getChecks(),
                         builder:
