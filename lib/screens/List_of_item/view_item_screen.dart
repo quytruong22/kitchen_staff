@@ -48,7 +48,7 @@ class _ListItemScreenState extends State<ListItemScreen> {
 
   Future<List<ItemDTO>> updateListByMenu() async {
     listItem = [];
-    // get item
+    // get item by menu
     if (!changelist) {
       if (selectedMenuIndex != -1) {
         listItem =
@@ -123,6 +123,8 @@ class _ListItemScreenState extends State<ListItemScreen> {
     }
   }
 
+  //bottom bar
+
   Widget actionBar(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     if (changelist) {
@@ -135,26 +137,13 @@ class _ListItemScreenState extends State<ListItemScreen> {
             Container(
               width: size.width - 150,
               alignment: Alignment.center,
-              child: ActionButton(
-                  text: "NHẬP HÀNG",
-                  press: () async {
-                    List<ItemDTO> selectList = [];
-                    for (var e in listShow) {
-                      if (e.isSelected) {
-                        selectList.add(e);
-                      }
-                    }
-                    if (selectList != []) {
-                      ListItem encode = ListItem(list: selectList);
-                      String jsonList = jsonEncode(encode);
-                      await service.setInstock(jsonList);
-                      print(jsonList);
-                    }
-                    await updateListByMenu();
-                    setState(() {});
-                  },
-                  icon: Icons.remove_shopping_cart_outlined,
-                  color: activeColor),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  instockButton(),
+                  warningButton(),
+                ],
+              ),
             ),
             ChangeListButton(
                 text: "DANH SÁCH MÓN HIỆN CÓ",
@@ -180,26 +169,14 @@ class _ListItemScreenState extends State<ListItemScreen> {
             Container(
               width: size.width - 150,
               alignment: Alignment.center,
-              child: ActionButton(
-                  text: "ĐÃ HẾT",
-                  press: () async {
-                    List<ItemDTO> selectList = [];
-                    for (var e in listShow) {
-                      if (e.isSelected) {
-                        selectList.add(e);
-                      }
-                    }
-                    if (selectList != []) {
-                      ListItem encode = ListItem(list: selectList);
-                      String jsonList = jsonEncode(encode);
-                      await service.setOutOfStock(jsonList);
-                      print(jsonList);
-                    }
-                    await updateListByMenu();
-                    setState(() {});
-                  },
-                  icon: Icons.add_shopping_cart,
-                  color: voidColor),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  emptyButton(),
+                  warningButton(),
+                  instockButton(),
+                ],
+              ),
             ),
             ChangeListButton(
                 text: "DANH SÁCH MÓN ĐÃ HẾT",
@@ -217,6 +194,78 @@ class _ListItemScreenState extends State<ListItemScreen> {
       );
     }
   }
+
+  // action buttons
+  ActionButton warningButton() {
+    return ActionButton(
+        text: "SẮP HẾT",
+        press: () async {
+          List<ItemDTO> selectList = [];
+          for (var e in listShow) {
+            if (e.isSelected) {
+              selectList.add(e);
+            }
+          }
+          if (selectList != []) {
+            ListItem encode = ListItem(list: selectList);
+            String jsonList = jsonEncode(encode);
+            await service.setWarning(jsonList);
+            print(jsonList);
+          }
+          await updateListByMenu();
+          setState(() {});
+        },
+        icon: Icons.shopping_cart_outlined,
+        color: warningColor);
+  }
+
+  ActionButton emptyButton() {
+    return ActionButton(
+        text: "ĐÃ HẾT",
+        press: () async {
+          List<ItemDTO> selectList = [];
+          for (var e in listShow) {
+            if (e.isSelected) {
+              selectList.add(e);
+            }
+          }
+          if (selectList != []) {
+            ListItem encode = ListItem(list: selectList);
+            String jsonList = jsonEncode(encode);
+            await service.setEmpty(jsonList);
+            print(jsonList);
+          }
+          await updateListByMenu();
+          setState(() {});
+        },
+        icon: Icons.remove_shopping_cart_outlined,
+        color: voidColor);
+  }
+
+  ActionButton instockButton() {
+    return ActionButton(
+        text: "NHẬP HÀNG",
+        press: () async {
+          List<ItemDTO> selectList = [];
+          for (var e in listShow) {
+            if (e.isSelected) {
+              selectList.add(e);
+            }
+          }
+          if (selectList != []) {
+            ListItem encode = ListItem(list: selectList);
+            String jsonList = jsonEncode(encode);
+            await service.setInstock(jsonList);
+            print(jsonList);
+          }
+          await updateListByMenu();
+          setState(() {});
+        },
+        icon: Icons.add_shopping_cart,
+        color: activeColor);
+  }
+
+  // build screen
 
   @override
   void initState() {

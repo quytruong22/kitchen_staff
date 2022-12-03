@@ -20,9 +20,7 @@ class _CardItemState extends State<CardItem> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+  GestureDetector itemView() {
     return GestureDetector(
       onTap: (() {
         setState(() {
@@ -54,6 +52,7 @@ class _CardItemState extends State<CardItem> {
             Flexible(
                 flex: 2,
                 child: Container(
+                  width: double.infinity,
                   color: backgroundColor(context),
                   padding: const EdgeInsets.all(5),
                   child: Column(
@@ -68,5 +67,23 @@ class _CardItemState extends State<CardItem> {
         ),
       ),
     );
+  }
+
+  Map<String, String> statusMessage = {'EMPTY': 'Đã hết', 'WARNING': 'Sắp hết'};
+
+  @override
+  Widget build(BuildContext context) {
+    String status = widget.item.status;
+    if (statusMessage.containsKey(status)) {
+      return ClipRRect(
+        child: Banner(
+          message: statusMessage[status]!,
+          location: BannerLocation.topEnd,
+          child: itemView(),
+        ),
+      );
+    } else {
+      return itemView();
+    }
   }
 }

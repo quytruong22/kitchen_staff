@@ -4,12 +4,14 @@ class ItemDTO {
   final String name;
   final int majorGroupid;
   bool isSelected = false;
+  final String status;
 
   ItemDTO(
       {required this.id,
       required this.imageLink,
       required this.name,
-      required this.majorGroupid});
+      required this.majorGroupid,
+      required this.status});
 
   set setIsSelected(bool newValue) {
     isSelected = newValue;
@@ -17,6 +19,7 @@ class ItemDTO {
 
   factory ItemDTO.fromjson(Map<String, dynamic> json) {
     return ItemDTO(
+        status: json['status'] as String,
         id: json['itemid'] as int,
         imageLink: json['image'] as String,
         majorGroupid: json['majorgroupid'] as int,

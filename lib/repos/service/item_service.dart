@@ -25,9 +25,14 @@ class ItemService {
     return respo.getOutOfItem(id);
   }
 
-  // set out of stock item
-  Future<bool> setOutOfStock(var body) async {
-    return respo.setOutOfStock(body);
+  // set Empty item
+  Future<bool> setEmpty(var body) async {
+    return respo.setEmpty(body);
+  }
+
+  // set Warning item
+  Future<bool> setWarning(var body) async {
+    return respo.setWarning(body);
   }
 
   // restock item

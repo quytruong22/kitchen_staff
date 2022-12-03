@@ -111,7 +111,7 @@ class _ListOrderScreenState extends State<ListOrderScreen> {
                           icon: Icons.fastfood,
                           color: warningColor),
                       ActionButton(
-                          text: "TRẢ LẠI",
+                          text: "ĐÃ HẾT",
                           press: () async {
                             await service.recallCheckDetail(list);
                             setState(() {});

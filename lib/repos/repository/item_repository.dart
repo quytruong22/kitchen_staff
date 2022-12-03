@@ -84,18 +84,34 @@ class ItemRepository {
     }
   }
 
-  // out of stock item
-  Future<bool> setOutOfStock(var body) async {
+  // Empty item
+  Future<bool> setEmpty(var body) async {
     headers = storage.getItem('headers');
     Response res = await post(
-        Uri.parse(uriConnect + '/kitchen/add/outofstock/'),
+        Uri.parse(uriConnect + '/kitchen/add/outofstock/empty'),
         headers: headers,
         body: body);
     if (res.statusCode == 200) {
-      print('set out of stock item success');
+      print('set Empty item success');
       return true;
     } else {
-      print('set out of stock item fail ' + res.body);
+      print('set Empty item fail ' + res.body);
+      return false;
+    }
+  }
+
+  // warning item
+  Future<bool> setWarning(var body) async {
+    headers = storage.getItem('headers');
+    Response res = await post(
+        Uri.parse(uriConnect + '/kitchen/add/outofstock/warning'),
+        headers: headers,
+        body: body);
+    if (res.statusCode == 200) {
+      print('set warning item success');
+      return true;
+    } else {
+      print('set warning item fail ' + res.body);
       return false;
     }
   }
