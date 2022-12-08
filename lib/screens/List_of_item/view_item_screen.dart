@@ -210,7 +210,6 @@ class _ListItemScreenState extends State<ListItemScreen> {
             ListItem encode = ListItem(list: selectList);
             String jsonList = jsonEncode(encode);
             await service.setWarning(jsonList);
-            print(jsonList);
           }
           await updateListByMenu();
           setState(() {});
@@ -233,7 +232,6 @@ class _ListItemScreenState extends State<ListItemScreen> {
             ListItem encode = ListItem(list: selectList);
             String jsonList = jsonEncode(encode);
             await service.setEmpty(jsonList);
-            print(jsonList);
           }
           await updateListByMenu();
           setState(() {});
@@ -256,7 +254,6 @@ class _ListItemScreenState extends State<ListItemScreen> {
             ListItem encode = ListItem(list: selectList);
             String jsonList = jsonEncode(encode);
             await service.setInstock(jsonList);
-            print(jsonList);
           }
           await updateListByMenu();
           setState(() {});

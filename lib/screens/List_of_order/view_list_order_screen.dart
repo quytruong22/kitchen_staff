@@ -40,11 +40,8 @@ class _ListOrderScreenState extends State<ListOrderScreen> {
     timer = Timer.periodic(const Duration(seconds: 30), ((timer) {
       setState(() {
         if (socket.socket.disconnected) {
-          print('reload - disconnected');
           socket.connectServer();
-        } else {
-          print('reload - connected');
-        }
+        } else {}
       });
     }));
   }

@@ -7,7 +7,7 @@ import 'package:localstorage/localstorage.dart';
 class LoginRepository {
   String uriConnect = uri;
   final LocalStorage storage = LocalStorage('cookie');
-  // Restaurant Image
+
   Future<String> getRestaurantImage() async {
     String result = "";
     Response res = await get(Uri.parse(uriConnect + '/login/'),
@@ -20,12 +20,10 @@ class LoginRepository {
     return result;
   }
 
-  //login
   Future<String> login(String user, String password) async {
     String result = "";
     Map data = {"username": user, "password": password};
     var body = json.encode(data);
-    print(body);
     Response res = await post(Uri.parse(uriConnect + '/login/kds/'),
         headers: {"Content-Type": "application/json"}, body: body);
     if (res.statusCode == 200) {
@@ -37,16 +35,13 @@ class LoginRepository {
     return result;
   }
 
-  // logout
   bool logout() {
     Map<String, String> head = storage.getItem("headers");
     post(Uri.parse(uriConnect + '/logout/'), headers: head);
     storage.clear();
-    print("logout");
     return true;
   }
 
-  // cookie
   Map<String, String> headers = {"content-type": "application/json"};
   Map<String, String> cookies = {};
   void _updateCookie(Response response) {
@@ -93,15 +88,5 @@ class LoginRepository {
     }
 
     return cookie;
-  }
-
-  // check logged in
-  bool checkLoggedIn() {
-    Map<String, String> head = {};
-    head = storage.getItem("headers") ?? {};
-    if (head.isNotEmpty) {
-      return true;
-    }
-    return false;
   }
 }

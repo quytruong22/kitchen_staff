@@ -40,10 +40,7 @@ class CheckRespository {
             headers: headers,
             body: json);
         if (res.statusCode == 200) {
-          print(json);
-        } else {
-          print('ready error');
-        }
+        } else {}
       }
     }
   }
@@ -66,10 +63,7 @@ class CheckRespository {
             headers: headers,
             body: json);
         if (res.statusCode == 200) {
-          print(json);
-        } else {
-          print('ready error');
-        }
+        } else {}
       }
     }
   }

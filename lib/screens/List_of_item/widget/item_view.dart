@@ -12,11 +12,19 @@ class CardItem extends StatefulWidget {
 }
 
 class _CardItemState extends State<CardItem> {
-  Color backgroundColor(BuildContext context) {
+  Color backgroundColor() {
     if (widget.item.isSelected) {
       return activeColor;
     } else {
       return textLightColor;
+    }
+  }
+
+  Color noteColor() {
+    if (widget.item.isSelected) {
+      return textLightColor;
+    } else {
+      return textColor;
     }
   }
 
@@ -53,13 +61,16 @@ class _CardItemState extends State<CardItem> {
                 flex: 2,
                 child: Container(
                   width: double.infinity,
-                  color: backgroundColor(context),
+                  color: backgroundColor(),
                   padding: const EdgeInsets.all(5),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(widget.item.name),
+                      Text(
+                        widget.item.name,
+                        style: TextStyle(color: noteColor()),
+                      ),
                     ],
                   ),
                 ))

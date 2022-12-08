@@ -8,20 +8,13 @@ class Socket {
   Socket();
   // declare
   void declareSocket() {
-    print("call func");
     socket = io.io(
         uriConnect,
         io.OptionBuilder()
             .setTransports(['websocket'])
             .disableAutoConnect()
             .build());
-    socket.onConnect((_) {
-      print("connect");
-    });
     socket.emit('join-kds-location', '0');
-    socket.onDisconnect((_) => print('disconnect'));
-    socket.onConnectError((data) => print('connect error' + data.toString()));
-    socket.onConnecting((data) => print('connecting to server'));
   }
 
   // connect

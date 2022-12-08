@@ -12,7 +12,7 @@ class OrderItemView extends StatefulWidget {
 }
 
 class _OrderItemViewState extends State<OrderItemView> {
-  Color backgroundColor(BuildContext context) {
+  Color backgroundColor() {
     if (widget.checkDetail.isSelected) {
       return activeColor;
     } else {
@@ -20,78 +20,20 @@ class _OrderItemViewState extends State<OrderItemView> {
     }
   }
 
-  // Widget quantitySelect(BuildContext context) {
-  //   Size size = MediaQuery.of(context).size;
-  //   if (widget.checkDetail.isSelected) {
-  //     num limit = widget.checkDetail.quantity;
-  //     return Container(
-  //       height: 56,
-  //       width: 12,
-  //       child: Column(
-  //         crossAxisAlignment: CrossAxisAlignment.center,
-  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //         children: [
-  //           SizedBox(
-  //             height: 56 / 3,
-  //             child: IconButton(
-  //                 padding: EdgeInsets.zero,
-  //                 alignment: Alignment.center,
-  //                 onPressed: (() {
-  //                   if (widget.checkDetail.quantitySelected < limit) {
-  //                     setState(() {
-  //                       widget.checkDetail.increaseQuantitySelected();
-
-  //                       quantity =
-  //                           widget.checkDetail.quantitySelected.toString();
-  //                     });
-  //                   }
-  //                 }),
-  //                 icon: const Icon(
-  //                   Icons.arrow_upward,
-  //                   size: 12,
-  //                 )),
-  //           ),
-  //           SizedBox(
-  //             height: 56 / 3,
-  //             child: Text(
-  //               quantity,
-  //               textAlign: TextAlign.center,
-  //             ),
-  //           ),
-  //           SizedBox(
-  //             height: 56 / 3,
-  //             child: IconButton(
-  //                 padding: EdgeInsets.zero,
-  //                 alignment: Alignment.center,
-  //                 onPressed: (() {
-  //                   if (widget.checkDetail.quantitySelected > 1) {
-  //                     setState(() {
-  //                       widget.checkDetail.decreaseQuantitySelected();
-
-  //                       quantity =
-  //                           widget.checkDetail.quantitySelected.toString();
-  //                     });
-  //                   }
-  //                 }),
-  //                 icon: const Icon(
-  //                   Icons.arrow_downward,
-  //                   size: 12,
-  //                 )),
-  //           ),
-  //         ],
-  //       ),
-  //     );
-  //   } else {
-  //     return SizedBox();
-  //   }
-  // }
+  Color noteColor() {
+    if (widget.checkDetail.isSelected) {
+      return textLightColor;
+    } else {
+      return textColor;
+    }
+  }
 
   List<Widget> checkDetailShow(BuildContext context) {
     List<Widget> list = [];
     list.add(Text(
       widget.checkDetail.itemname,
-      style: const TextStyle(
-          color: textColor, fontSize: 14, fontWeight: FontWeight.bold),
+      style: TextStyle(
+          color: noteColor(), fontSize: 14, fontWeight: FontWeight.bold),
       textAlign: TextAlign.left,
     ));
     if (widget.checkDetail.specialrequest.isNotEmpty) {
@@ -99,14 +41,14 @@ class _OrderItemViewState extends State<OrderItemView> {
           children: widget.checkDetail.specialrequest
               .map((e) => TextSpan(
                     text: e.name + ', ',
-                    style: const TextStyle(color: textColor, fontSize: 12),
+                    style: TextStyle(color: noteColor(), fontSize: 12),
                   ))
               .toList())));
     }
     if (widget.checkDetail.note != "") {
       list.add(Text(
         widget.checkDetail.note,
-        style: const TextStyle(color: textColor, fontSize: 12),
+        style: TextStyle(color: noteColor(), fontSize: 12),
         textAlign: TextAlign.left,
       ));
     }
@@ -124,7 +66,7 @@ class _OrderItemViewState extends State<OrderItemView> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(0),
         ),
-        backgroundColor: backgroundColor(context),
+        backgroundColor: backgroundColor(),
         elevation: 0,
       ),
       onPressed: (() {
@@ -144,8 +86,8 @@ class _OrderItemViewState extends State<OrderItemView> {
               width: size.width * 0.02,
               child: Text(
                 widget.checkDetail.quantity.toString() + 'x',
-                style: const TextStyle(
-                    color: textColor,
+                style: TextStyle(
+                    color: noteColor(),
                     fontSize: 12,
                     fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
