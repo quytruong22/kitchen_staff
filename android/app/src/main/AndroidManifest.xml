@@ -2,7 +2,7 @@
     package="com.example.chef_application">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="chef_application"
+        android:label="Kitchen Display System"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
