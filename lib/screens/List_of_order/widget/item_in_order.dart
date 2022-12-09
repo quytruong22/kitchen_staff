@@ -1,5 +1,6 @@
 import 'package:chef_application/config/theme.dart';
 import 'package:chef_application/repos/models/checkdetail_obj.dart';
+import 'package:chef_application/repos/models/special_request_obj.dart';
 import 'package:flutter/material.dart';
 
 class OrderItemView extends StatefulWidget {
@@ -12,6 +13,7 @@ class OrderItemView extends StatefulWidget {
 }
 
 class _OrderItemViewState extends State<OrderItemView> {
+  List<String> specialRequests = [];
   Color backgroundColor() {
     if (widget.checkDetail.isSelected) {
       return activeColor;
@@ -36,15 +38,13 @@ class _OrderItemViewState extends State<OrderItemView> {
           color: noteColor(), fontSize: 14, fontWeight: FontWeight.bold),
       textAlign: TextAlign.left,
     ));
-    if (widget.checkDetail.specialrequest.isNotEmpty) {
-      list.add(Text.rich(TextSpan(
-          children: widget.checkDetail.specialrequest
-              .map((e) => TextSpan(
-                    text: e.name + ', ',
-                    style: TextStyle(color: noteColor(), fontSize: 12),
-                  ))
-              .toList())));
+    if (specialRequests != []) {
+      list.add(Text(
+        specialRequests.join(", "),
+        style: TextStyle(color: noteColor(), fontSize: 12),
+      ));
     }
+
     if (widget.checkDetail.note != "") {
       list.add(Text(
         widget.checkDetail.note,
@@ -53,6 +53,16 @@ class _OrderItemViewState extends State<OrderItemView> {
       ));
     }
     return list;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.checkDetail.specialrequest.isNotEmpty) {
+      for (var specialRequest in widget.checkDetail.specialrequest) {
+        specialRequests.add(specialRequest.name);
+      }
+    }
   }
 
   @override
