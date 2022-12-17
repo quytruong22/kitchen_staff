@@ -39,7 +39,6 @@ class _ListItemScreenState extends State<ListItemScreen> {
   Color allMajorbgColor = sideBarColor;
   Color allMajortxtColor = textLightColor;
   List<ItemDTO> listShow = [];
-  List<MajorGroup> listMajorShow = [];
   List<MajorGroup> listMajor = [];
   List<Menu> listMenu = [];
   List<ItemDTO> listItem = [];
@@ -48,7 +47,7 @@ class _ListItemScreenState extends State<ListItemScreen> {
 
   Future<List<ItemDTO>> updateListByMenu() async {
     listItem = [];
-    // get item by menu
+
     if (!changelist) {
       if (selectedMenuIndex != -1) {
         listItem =
@@ -64,34 +63,27 @@ class _ListItemScreenState extends State<ListItemScreen> {
         listItem = await service.getOutOfItem(0);
       }
     }
-    // update list show
-    selectedMajorIndex = -1;
-    allMajortxtColor = textLightColor;
-    allMajorbgColor = sideBarColor;
-    updateListMajor();
     updateList();
     return listShow;
   }
 
   void updateList() {
-    // unselect item
     for (var item in listShow) {
       item.setIsSelected = false;
     }
-    // menu filter
+
     listShow = listItem;
-    // major filter
+
     if (selectedMajorIndex != -1) {
       List<ItemDTO> list = [];
       for (var item in listShow) {
-        if (item.majorGroupid ==
-            listMajorShow.elementAt(selectedMajorIndex).id) {
+        if (item.majorGroupid == listMajor.elementAt(selectedMajorIndex).id) {
           list.add(item);
         }
       }
       listShow = list;
     }
-    // search
+
     if (searchName != '') {
       List<ItemDTO> listSearch = [];
       String search = searchName.toLowerCase().trim();
@@ -103,27 +95,7 @@ class _ListItemScreenState extends State<ListItemScreen> {
       }
       listShow = listSearch;
     }
-    // sort
   }
-
-  void updateListMajor() {
-    selectedMajorIndex = -1;
-    listMajorShow = [];
-    for (var item in listItem) {
-      late MajorGroup major;
-      for (var e in listMajor) {
-        if (e.id == item.majorGroupid) {
-          major = e;
-          break;
-        }
-      }
-      if (!listMajorShow.contains(major)) {
-        listMajorShow.add(major);
-      }
-    }
-  }
-
-  //bottom bar
 
   Widget actionBar(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -262,14 +234,11 @@ class _ListItemScreenState extends State<ListItemScreen> {
         color: activeColor);
   }
 
-  // build screen
-
   @override
   void initState() {
     super.initState();
     listMenu = widget.listMenu;
     listMajor = widget.listMajor;
-    listMajorShow = listMajor;
     listItem = widget.listItem;
     listShow = listItem;
   }
@@ -338,8 +307,6 @@ class _ListItemScreenState extends State<ListItemScreen> {
                         selectedMenuIndex = -1;
                         await updateListByMenu();
                         setState(() {
-                          selectedMenuIndex = -1;
-                          updateListByMenu();
                           alltxtColor = textLightColor;
                           allbgColor = sideBarColor;
                         });
@@ -413,8 +380,8 @@ class _ListItemScreenState extends State<ListItemScreen> {
                     },
                     txtColor: allMajortxtColor,
                     backgroundcolor: allMajorbgColor),
-                ...listMajorShow.map((e) {
-                  if (listMajorShow.indexOf(e) == selectedMajorIndex) {
+                ...listMajor.map((e) {
+                  if (listMajor.indexOf(e) == selectedMajorIndex) {
                     return Row(
                       children: [
                         const SizedBox(
@@ -438,7 +405,7 @@ class _ListItemScreenState extends State<ListItemScreen> {
                           text: e.name,
                           press: () {
                             setState(() {
-                              selectedMajorIndex = listMajorShow.indexOf(e);
+                              selectedMajorIndex = listMajor.indexOf(e);
                               updateList();
                               allMajorbgColor = textLightColor;
                               allMajortxtColor = sideBarColor;

@@ -1,6 +1,5 @@
 import 'package:chef_application/config/theme.dart';
 import 'package:chef_application/repos/models/checkdetail_obj.dart';
-import 'package:chef_application/repos/models/special_request_obj.dart';
 import 'package:flutter/material.dart';
 
 class OrderItemView extends StatefulWidget {
